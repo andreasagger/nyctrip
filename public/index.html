@@ -273,12 +273,6 @@ nav.tabs button[aria-selected="true"] svg{stroke-width:2.4}
     <h2 class="ph">Værktøj</h2>
     <p class="lead">Tjekliste før afrejse og regnemaskiner til turen. Det I krydser af, deles mellem alle fire telefoner.</p>
 
-    <h4>Fælles billedalbum</h4>
-    <div class="card">
-      <p>Læg jeres bedste billeder i det delte album, så har I dem samlet efter turen.</p>
-      <p><a class="pill" id="albumbtn" target="_blank" rel="noopener">📷 Åbn albummet</a></p>
-    </div>
-
     <h4>Inden afrejse</h4>
     <div class="sync" id="sync"><i></i><span>Tjekker forbindelse</span></div>
     <div class="card" id="todos"></div>
@@ -737,7 +731,6 @@ function confetti(){
 }
 
 let TODO = LS.get("nyc_todo",{});
-document.getElementById("albumbtn").href=ALBUM;
 
 /* ---------- weather ---------- */
 const WX_URL="https://api.open-meteo.com/v1/forecast?latitude=40.7131&longitude=-73.9925&current=temperature_2m,apparent_temperature,weather_code,wind_speed_10m&daily=weather_code,temperature_2m_max,temperature_2m_min,precipitation_probability_max,sunset&timezone=America%2FNew_York&forecast_days=16&wind_speed_unit=ms";
