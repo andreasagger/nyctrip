@@ -1,18 +1,26 @@
 import { getStore } from "@netlify/blobs";
 
-// Shared checklist for the trip. Stores {done:{key:{v,t}}, todo:{key:{v,t}}}
+// Shared state for the trip.
+// done/todo: {key:{v:boolean,t}}   data: {key:{v:object|null,t}}  (null = deleted)
 export default async (req) => {
   const store = getStore("nyc-trip");
-  let state = (await store.get("state", { type: "json" })) || { done: {}, todo: {} };
+  let state = (await store.get("state", { type: "json" })) || {};
+  state.done ||= {}; state.todo ||= {}; state.data ||= {};
 
   if (req.method === "POST") {
     let ops = [];
     try { ops = await req.json(); } catch {}
     if (!Array.isArray(ops)) ops = [];
     for (const o of ops.slice(0, 200)) {
-      if (!o || !["done", "todo"].includes(o.s) || typeof o.k !== "string" || o.k.length > 200) continue;
+      if (!o || !["done", "todo", "data"].includes(o.s) || typeof o.k !== "string" || o.k.length > 200) continue;
+      let v;
+      if (o.s === "data") {
+        if (o.v !== null && (typeof o.v !== "object" || JSON.stringify(o.v).length > 5000)) continue;
+        v = o.v;
+      } else v = !!o.v;
+      const t = Number(o.t) || Date.now();
       const cur = state[o.s][o.k];
-      if (!cur || cur.t <= o.t) state[o.s][o.k] = { v: !!o.v, t: Number(o.t) || Date.now() };
+      if (!cur || cur.t <= t) state[o.s][o.k] = { v, t };
     }
     await store.setJSON("state", state);
   }

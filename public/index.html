@@ -167,6 +167,46 @@ nav.tabs button[aria-selected="true"] svg{stroke-width:2.4}
 .wxd b{display:block;font-size:14px;color:var(--ink)}
 #confetti{position:fixed;inset:0;pointer-events:none;z-index:50}
 @media (prefers-reduced-motion:reduce){.bullet{transition:none}}
+/* v3 additions */
+.small{font-size:13.5px;color:var(--muted)}
+.mbtn{flex:none;width:30px;height:28px;border-radius:8px;border:0;background:transparent;color:var(--muted);font-size:20px;line-height:1;cursor:pointer;padding:0}
+.chip.mine{background:transparent;border:1px solid var(--day)}
+.addrow{display:flex;gap:8px;flex-wrap:wrap;margin:4px 0 16px 26px}
+.btn.sm{padding:9px 14px;font-size:14px}
+.btn.danger{color:#EE352E;border-color:#EE352E}
+.now{margin:18px 0 0;border-radius:16px;background:var(--ink);color:var(--bg);padding:14px 16px}
+.now .lab{font-size:12px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;opacity:.7}
+.now h3{margin:2px 0 6px;font-size:21px;line-height:1.15;font-weight:800;font-variation-settings:"wdth" 75}
+.now .nx{margin-top:12px;padding-top:10px;border-top:1px solid rgba(127,127,127,.35);font-size:15px}
+.now .row2{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.now .go{background:var(--bg);color:var(--ink);margin-left:0}
+.now .btn{background:transparent;color:var(--bg);border:1px solid rgba(127,127,127,.6);padding:7px 12px;font-size:14px}
+.bk{display:flex;flex-wrap:wrap;gap:6px;margin:10px 0 0}
+.bk span{font-size:13.5px;font-weight:700;padding:5px 10px;border-radius:999px;background:var(--surface);border:1px solid var(--line)}
+details.rain{margin:6px 0 14px;border:1px solid var(--line);border-radius:12px;background:var(--surface);padding:0 14px}
+details.rain.wet{border:2px solid #0039A6}
+details.rain summary{cursor:pointer;font-weight:800;padding:12px 0;list-style:none}
+details.rain summary::-webkit-details-marker{display:none}
+details.rain[open]{padding-bottom:12px}
+details.rain .item{background:var(--bg)}
+.sheet{position:fixed;inset:0;z-index:60;display:flex;align-items:flex-end;justify-content:center}
+.sheet[hidden]{display:none}
+.sbg{position:absolute;inset:0;background:rgba(0,0,0,.45)}
+.spanel{position:relative;width:100%;max-width:680px;max-height:88vh;overflow-y:auto;background:var(--surface);border-radius:18px 18px 0 0;padding:18px 18px calc(22px + env(safe-area-inset-bottom,0px))}
+.spanel h3{margin:0 0 6px;font-size:22px;font-weight:800;font-variation-settings:"wdth" 75}
+.txt{width:100%;font:inherit;font-size:16px;padding:10px 12px;border-radius:10px;border:1px solid var(--line);background:var(--bg);color:var(--ink)}
+textarea.txt{min-height:70px;resize:vertical}
+.srow{display:flex;gap:8px;flex-wrap:wrap;margin-top:18px}
+.daypick{display:flex;gap:6px;flex-wrap:wrap}
+.daypick button{width:42px;height:42px;border-radius:50%;border:3px solid transparent;font-weight:800;cursor:pointer;background:var(--c);color:var(--ci)}
+.daypick button[aria-pressed="true"]{border-color:var(--ink);transform:scale(1.08)}
+.seg.blk button{font-size:14px}
+.cb{display:flex;gap:10px;align-items:center;margin-top:12px;font-size:15px}
+.cb input{width:20px;height:20px}
+.tk .ref{font-family:ui-monospace,Menlo,monospace;font-size:18px;font-weight:700;letter-spacing:.04em}
+.toast{position:fixed;left:50%;bottom:calc(140px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:10px 16px;border-radius:999px;font-weight:700;font-size:14px;z-index:70;opacity:0;transition:opacity .2s;pointer-events:none;white-space:nowrap}
+.toast.on{opacity:1}
+.empty{color:var(--muted);font-size:15px;margin:0 0 10px}
 </style>
 </head>
 <body>
@@ -182,13 +222,12 @@ nav.tabs button[aria-selected="true"] svg{stroke-width:2.4}
     </div>
   </header>
 
-  <!-- PLAN -->
   <section class="page on" id="p-plan" aria-label="Dagsplan">
+    <div id="now"></div>
     <div class="line"><div class="stops" role="tablist" id="stops"></div></div>
     <div id="day"></div>
   </section>
 
-  <!-- MAD -->
   <section class="page food" id="p-mad" aria-label="Mad">
     <h2 class="ph">Mad</h2>
     <p class="lead">Priser er cirka pr. person før skat og drikkepenge. Læg ca. 30 % oveni på steder med bordservering.</p>
@@ -197,16 +236,19 @@ nav.tabs button[aria-selected="true"] svg{stroke-width:2.4}
     <div id="foodlist"></div>
   </section>
 
-  <!-- KORT -->
   <section class="page" id="p-kort" aria-label="Kort">
     <h2 class="ph">Kort</h2>
     <div class="filter" id="mapfilter"></div>
     <div class="mapwrap"><div id="map"></div><button class="pill locbtn" id="locbtn">📍 Find mig</button></div>
     <h4>Tæt på dig</h4>
-    <div id="near"><p class="lead">Tryk på Find mig for at se, hvad der ligger tættest på.</p></div>
+    <div id="near"><p class="empty">Tryk på Find mig for at se, hvad der ligger tættest på.</p></div>
+    <h4>Ønskeliste</h4>
+    <p class="small" style="margin:-4px 0 10px">Steder I har hørt om og gerne vil nå. De vises med pink på kortet.</p>
+    <div id="wishes"></div>
+    <button class="btn sm" id="addwish">+ Tilføj ønske</button>
   </section>
 
-  <!-- PRAKTISK -->
+
   <section class="page" id="p-info" aria-label="Praktisk">
     <h2 class="ph">Praktisk</h2>
     <p class="lead">Det vigtigste at vide før og under turen.</p>
@@ -252,7 +294,7 @@ nav.tabs button[aria-selected="true"] svg{stroke-width:2.4}
         <li>Hav lidt kontanter med. Fx Wah Fung tager kun kontant.</li>
         <li>Vælg altid at betale i dollars, ikke kroner, når kortterminalen spørger.</li>
       </ul>
-      <p style="margin-top:10px">Brug regnemaskinen under Værktøj for at dele regningen.</p>
+      <p style="margin-top:10px">Brug drikkepengeberegneren under Værktøj.</p>
     </div>
 
     <h4>Gode tips</h4>
@@ -268,39 +310,29 @@ nav.tabs button[aria-selected="true"] svg{stroke-width:2.4}
     </div>
   </section>
 
-  <!-- VÆRKTØJ -->
   <section class="page" id="p-tools" aria-label="Værktøj">
     <h2 class="ph">Værktøj</h2>
-    <p class="lead">Tjekliste før afrejse og regnemaskiner til turen. Det I krydser af, deles mellem alle fire telefoner.</p>
+    <div class="sync" id="sync"><i></i><span>Tjekker forbindelse</span></div>
+
+    <h4>Billetter og bookinger</h4>
+    <div id="tickets"></div>
+    <button class="btn sm" id="addticket">+ Tilføj booking</button>
 
     <h4>Inden afrejse</h4>
-    <div class="sync" id="sync"><i></i><span>Tjekker forbindelse</span></div>
     <div class="card" id="todos"></div>
 
-    <h4>Del regningen</h4>
+    <h4>Drikkepenge</h4>
     <div class="card">
-      <label class="f" for="bill">Beløb på menukortet ($)</label>
+      <label class="f" for="bill">Beløb på regningen før skat ($)</label>
       <input class="num" id="bill" type="number" inputmode="decimal" placeholder="0">
       <label class="f">Drikkepenge</label>
       <div class="seg" id="tipseg"></div>
-      <div class="row">
-        <div><label class="f" for="ppl">Antal personer</label><input class="num" id="ppl" type="number" inputmode="numeric" value="4"></div>
-        <div><label class="f" for="rate">Kurs (kr. pr. $)</label><input class="num" id="rate" type="number" inputmode="decimal" step="0.01"></div>
-      </div>
       <div class="result" id="billres"></div>
-    </div>
-
-    <h4>Omregn dollars</h4>
-    <div class="card">
-      <label class="f" for="usd">Dollars</label>
-      <input class="num" id="usd" type="number" inputmode="decimal" placeholder="0">
-      <div class="result" id="usdres"></div>
-      <p class="small" style="color:var(--muted);font-size:13.5px;margin-top:10px">Kursen er et gæt. Ret den i feltet ovenfor, så passer den til dit kort.</p>
     </div>
   </section>
 </div>
 
-<a class="home" id="homebtn" target="_blank" rel="noopener" href="https://www.google.com/maps/dir/?api=1&destination=95%20Henry%20St%2C%20New%20York%2C%20NY%2010002&travelmode=transit">
+<a class="home" id="homebtn" target="_blank" rel="noopener" href="#">
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-7 9 7"/><path d="M5 10v10h14V10"/></svg>Til hotellet</a>
 
 <nav class="tabs" aria-label="Sider"><div class="in" role="tablist">
@@ -310,6 +342,9 @@ nav.tabs button[aria-selected="true"] svg{stroke-width:2.4}
   <button role="tab" data-p="p-info" aria-selected="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.5v.5"/></svg>Praktisk</button>
   <button role="tab" data-p="p-tools" aria-selected="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M8 7h8M8 12h2M14 12h2M8 16h2M14 16h2"/></svg>Værktøj</button>
 </div></nav>
+
+<div class="sheet" id="sheet" hidden><div class="sbg" data-close></div><div class="spanel" role="dialog" aria-modal="true" id="sbody"></div></div>
+<div class="toast" id="toast" role="status"></div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
 <script>
@@ -568,171 +603,384 @@ const COORDS = {
  "Washington St & Water St, Brooklyn, NY 11201":[40.7033,-73.9894],
  "York St Station, Brooklyn, NY 11201":[40.7014,-73.9866]
 };
+Object.assign(COORDS,{
+ "230 Vesey St, New York, NY 10281":[40.7133,-74.0154],
+ "103 Orchard St, New York, NY 10002":[40.7187,-73.9900],
+ "30 Rockefeller Plaza, New York, NY 10112":[40.7587,-73.9787],
+ "439 W 15th St, New York, NY 10011":[40.7417,-74.0064],
+ "21 Dey St, New York, NY 10007":[40.7113,-74.0097],
+ "1000 5th Ave, New York, NY 10028":[40.7794,-73.9632],
+ "20 Hudson Yards, New York, NY 10001":[40.7539,-74.0020]
+});
+const RAIN = {
+ "2026-11-12":{note:"Det meste i dag er indendørs. Færgen sejler også i regn, og man kan sidde inde. Hvis det styrter ned, kan I bytte færgen med et af de her.",items:[
+  {t:"Brookfield Place og Winter Garden",x:"Overdækket palmehave og food hall ved vandet, lige ved 9/11.",p:"Gratis",a:"230 Vesey St, New York, NY 10281",b:"Eftermiddag"},
+  {t:"Tenement Museum",x:"Guidede ture i gamle lejligheder, hvor indvandrere boede. Ligger tæt på hotellet. Book forud.",p:"ca. $35",a:"103 Orchard St, New York, NY 10002",b:"Eftermiddag"}]},
+ "2026-11-13":{note:"Skøjteløb kan byttes med noget indendørs. Udsigten er stadig flot i let regn, men ikke i tæt tåge, så tjek vejret om morgenen.",items:[
+  {t:"MoMA",x:"Van Gogh, Monet og Warhol. Ligger tæt på Rockefeller Center.",p:"ca. $30",a:"11 W 53rd St, New York, NY 10019",b:"Eftermiddag"},
+  {t:"Rockefeller Center indenfor",x:"Underjordiske gange med butikker og madsteder under hele komplekset.",p:"Gratis",a:"30 Rockefeller Plaza, New York, NY 10112",b:"Formiddag"}]},
+ "2026-11-14":{note:"Brooklyn er mest udendørs. Byt dagen med søndag eller mandag ved at flytte punkterne, eller brug et af de her.",items:[
+  {t:"ARTECHOUSE",x:"Digital kunst projiceret på vægge og gulv. Fra PDF'en.",p:"ca. $30 til 40",a:"439 W 15th St, New York, NY 10011",b:"Eftermiddag"},
+  {t:"Mercer Labs",x:"Stort museum for kunst og teknologi med spejlrum og lys.",p:"ca. $50",a:"21 Dey St, New York, NY 10007",b:"Eftermiddag"},
+  {t:"Chelsea Market",x:"Food hall i en gammel kiksfabrik. Tørt og varmt.",p:"$ til $$",a:"75 9th Ave, New York, NY 10011",b:"Frokost"}]},
+ "2026-11-15":{note:"Drop parken og tag et museum mere. De to store ligger på hver sin side af parken.",items:[
+  {t:"Natural History Museum",x:"Dinosaurer og blåhvalen.",p:"ca. $30",a:"200 Central Park West, New York, NY 10024",b:"Formiddag"},
+  {t:"The Met",x:"Et af verdens største kunstmuseer. Kan sagtens tage en hel formiddag.",p:"ca. $30",a:"1000 5th Ave, New York, NY 10028",b:"Formiddag"}]},
+ "2026-11-16":{note:"Shoppingen kan sagtens flyttes indendørs.",items:[
+  {t:"Macy's Herald Square",x:"Kæmpe stormagasin. Spørg om turistrabat.",a:"151 W 34th St, New York, NY 10001",b:"Formiddag"},
+  {t:"The Shops at Hudson Yards",x:"Overdækket indkøbscenter på flere etager ved Vessel.",a:"20 Hudson Yards, New York, NY 10001",b:"Eftermiddag"},
+  {t:"Westfield i Oculus",x:"Indkøbscenter under den hvide banegård.",a:"185 Greenwich St, New York, NY 10007",b:"Eftermiddag"}]}
+};
+/* ================= basics ================= */
 const LS = {
   get(k,d){try{const v=localStorage.getItem(k);return v===null?d:JSON.parse(v)}catch(e){return d}},
   set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}
 };
-const esc = s => String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const $ = s => document.querySelector(s);
+const esc = s => String(s??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 const UA = navigator.userAgent||"";
 const IS_IOS = /iPhone|iPad|iPod/.test(UA) || (navigator.platform==="MacIntel" && navigator.maxTouchPoints>1);
 const IS_ANDROID = /Android/.test(UA);
-const dirURL = a => {
-  const q=encodeURIComponent(a);
+const dirURL = a => { const q=encodeURIComponent(a);
   if(IS_IOS) return "https://maps.apple.com/?daddr="+q+"&dirflg=r";
   if(IS_ANDROID) return "geo:0,0?q="+q;
-  return "https://www.google.com/maps/dir/?api=1&destination="+q+"&travelmode=transit";
-};
+  return "https://www.google.com/maps/dir/?api=1&destination="+q+"&travelmode=transit"; };
 const pin = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg>';
 const tick = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>';
+const goBtn = a => a?`<a class="go" href="${dirURL(a)}" target="_blank" rel="noopener">${pin}Vis vej</a>`:"";
+const uid = () => Date.now().toString(36)+Math.random().toString(36).slice(2,6);
 
-function todayISO(){const t=new Date();return t.getFullYear()+"-"+String(t.getMonth()+1).padStart(2,"0")+"-"+String(t.getDate()).padStart(2,"0")}
-const TODAY = todayISO();
-let done = LS.get("nyc_done",{});
-let current = (DAYS.find(x=>x.d===TODAY)||DAYS[0]).d;
+const QS = new URLSearchParams(location.search);
+const isoOf = t => t.getFullYear()+"-"+String(t.getMonth()+1).padStart(2,"0")+"-"+String(t.getDate()).padStart(2,"0");
+const TODAY = QS.get("dag") || isoOf(new Date());
+function nowHour(){ const k=QS.get("kl"); if(k) return parseFloat(k.replace(",",".")); const n=new Date(); return n.getHours()+n.getMinutes()/60 }
+const BLOCKS = ["Formiddag","Frokost","Eftermiddag","Aften"];
+const BLOCK_START = {Formiddag:0,Frokost:12,Eftermiddag:14,Aften:17.5};
+const WDN = {Ons:"Onsdag",Tor:"Torsdag",Fre:"Fredag",Lør:"Lørdag",Søn:"Søndag",Man:"Mandag",Tir:"Tirsdag"};
+const dayOf = iso => DAYS.find(d=>d.d===iso);
+const fmtDate = iso => { const d=dayOf(iso); if(d) return d.wd+" "+d.n+". nov"; if(!iso) return ""; const [y,m,dd]=iso.split("-"); return +dd+"/"+(+m) };
+const fmtTime = t => t?t.replace(":","."):"";
+const isPage = id => document.getElementById(id).classList.contains("on");
 
+let done = LS.get("nyc_done",{}), TODO = LS.get("nyc_todo",{}), DATA = LS.get("nyc_data",{});
+let current = (dayOf(TODAY)||DAYS[0]).d, showHidden=false, ITEMS={};
+let me = LS.get("nyc_me","");
+
+function toast(t){ const el=$("#toast"); el.textContent=t; el.classList.add("on"); clearTimeout(toast.h); toast.h=setTimeout(()=>el.classList.remove("on"),1800) }
+
+/* ================= shared data ================= */
+function setData(k,v){ if(v==null) delete DATA[k]; else DATA[k]=v; LS.set("nyc_data",DATA); syncOp("data",k,v??null); refresh() }
+const dataList = p => Object.keys(DATA).filter(k=>k.startsWith(p)).map(k=>({id:k.slice(p.length),...DATA[k]}));
+
+async function geocode(q){
+  try{
+    const r=await fetch("https://nominatim.openstreetmap.org/search?format=json&limit=1&bounded=1&viewbox=-74.30,40.95,-73.65,40.50&q="+encodeURIComponent(q));
+    const j=await r.json(); if(j&&j[0]) return [+(+j[0].lat).toFixed(5),+(+j[0].lon).toFixed(5)];
+  }catch(e){} return null;
+}
+const withCity = a => /new york|brooklyn|queens|bronx|\bny\b|\bnyc\b/i.test(a)?a:a+", New York, NY";
+
+/* ================= day model ================= */
+function origBlock(key){ const [d,bi]=key.split("_"); return dayOf(d).blocks[+bi].w }
+function dayItems(iso){
+  const out={}; BLOCKS.forEach(b=>out[b]=[]);
+  DAYS.forEach(d=>d.blocks.forEach((b,bi)=>b.items.forEach((it,ii)=>{
+    const key=d.d+"_"+bi+"_"+ii, mv=DATA["move:"+key]||{};
+    const day=mv.day||d.d, blk=mv.block||b.w;
+    if(day!==iso) return;
+    out[blk].push({...it,key,b:blk,home:d.d,hidden:!!mv.hidden,moved:day!==d.d});
+  })));
+  dataList("item:").forEach(c=>{ if(c.day!==iso||!out[c.block]) return;
+    out[c.block].push({t:c.t,x:c.x,p:c.p,a:c.a,ll:c.ll,tm:c.tm,by:c.by,key:"c_"+c.id,cid:c.id,custom:true,b:c.block}) });
+  BLOCKS.forEach(b=>out[b].sort((a,z)=>(a.tm&&z.tm)?a.tm.localeCompare(z.tm):0));
+  return out;
+}
+
+/* ================= header and stops ================= */
 function status(){
-  const el=document.getElementById("status");
-  const start=new Date(2026,10,11), now=new Date(), t0=new Date(now.getFullYear(),now.getMonth(),now.getDate());
-  const diff=Math.round((start-t0)/864e5);
-  const idx=DAYS.findIndex(x=>x.d===TODAY);
+  const el=$("#status"), start=new Date(2026,10,11), now=new Date(), t0=new Date(now.getFullYear(),now.getMonth(),now.getDate());
+  const diff=Math.round((start-t0)/864e5), idx=DAYS.findIndex(x=>x.d===TODAY);
   if(idx>=0) el.innerHTML="<b>Dag "+(idx+1)+"</b>af 7";
   else if(diff>0) el.innerHTML="<b>"+diff+"</b>"+(diff===1?"dag til afgang":"dage til afgang");
   else el.innerHTML="<b>Tak</b>for turen";
 }
-
 function renderStops(){
-  document.getElementById("stops").innerHTML = DAYS.map(x=>
-    `<button class="stop" role="tab" aria-selected="${x.d===current}" data-d="${x.d}" style="--c:${x.c};--ci:${x.ci}" aria-label="${x.wd} ${x.n}. november, ${esc(x.title)}">
-      ${x.d===TODAY?'<span class="today">I dag</span>':''}
-      <span class="bullet">${x.n}</span><span class="wd">${x.wd}</span></button>`).join("");
-  document.querySelectorAll(".stop").forEach(b=>b.onclick=()=>{current=b.dataset.d;renderStops();renderDay();window.scrollTo({top:0})});
+  $("#stops").innerHTML = DAYS.map(x=>
+    `<button class="stop" role="tab" aria-selected="${x.d===current}" data-d="${x.d}" style="--c:${x.c};--ci:${x.ci}" aria-label="${WDN[x.wd]} ${x.n}. november">
+      ${x.d===TODAY?'<span class="today">I dag</span>':''}<span class="bullet">${x.n}</span><span class="wd">${x.wd}</span></button>`).join("");
+  document.querySelectorAll(".stop").forEach(b=>b.onclick=()=>{current=b.dataset.d;showHidden=false;renderStops();renderDay()});
 }
 
-function itemHTML(it,key){
-  const isDone=!!done[key];
-  const chips=[];
-  if(it.p) chips.push(`<span class="chip">${esc(it.p)}</span>`);
-  if(it.book) chips.push(`<span class="chip book">Book forud</span>`);
-  if(it.alt) chips.push(`<span class="chip alt">Alternativ</span>`);
-  const go = it.a?`<a class="go" href="${dirURL(it.a)}" target="_blank" rel="noopener">${pin}Vis vej</a>`:"";
-  return `<div class="item${it.alt?" alt":""}${isDone?" done":""}" data-k="${key}">
-    <div class="itop"><h3>${esc(it.t)}</h3><button class="check" aria-label="Marker som klaret" aria-pressed="${isDone}">${tick}</button></div>
+/* ================= now and next ================= */
+function renderNow(){
+  const el=$("#now"), d=dayOf(TODAY);
+  if(!d){el.innerHTML="";return}
+  if(d.secret && !LS.get("nyc_bday",false)){
+    el.innerHTML=`<div class="now"><div class="lab">I dag</div><h3>🎂 Tillykke med fødselsdagen</h3><div class="row2"><button class="btn" id="nowreveal">Åbn dagens overraskelse</button></div></div>`;
+    $("#nowreveal").onclick=()=>{LS.set("nyc_bday",true);current=TODAY;refresh();confetti()}; return;
+  }
+  const items=dayItems(TODAY), flat=[];
+  BLOCKS.forEach(b=>items[b].forEach(it=>{ if(!it.hidden&&!it.alt) flat.push(it) }));
+  const h=nowHour(), curB=[...BLOCKS].reverse().find(b=>h>=BLOCK_START[b]), ci=BLOCKS.indexOf(curB);
+  const pending=flat.filter(it=>!done[it.key]&&BLOCKS.indexOf(it.b)>=ci);
+  const nowIt=pending[0], next=pending[1];
+  const hm=String(Math.floor(h)).padStart(2,"0")+":"+String(Math.round((h%1)*60)).padStart(2,"0");
+  const bk=dataList("ticket:").filter(t=>t.date===TODAY&&t.time&&t.time>=hm).sort((a,b)=>a.time.localeCompare(b.time))[0];
+  let html=`<div class="now">`;
+  if(nowIt){
+    html+=`<div class="lab">Nu, ${nowIt.b.toLowerCase()}</div><h3>${esc(nowIt.t)}</h3>
+      <div class="row2">${goBtn(nowIt.a)}<button class="btn" data-nowdone="${nowIt.key}">Klaret</button></div>`;
+    if(next) html+=`<div class="nx"><span class="lab">Bagefter</span><br><b>${esc(next.t)}</b></div>`;
+  } else html+=`<div class="lab">I dag</div><h3>Ikke mere på planen. Nyd resten af dagen.</h3>`;
+  if(bk) html+=`<div class="nx">🎟️ <b>Kl. ${fmtTime(bk.time)}</b> ${esc(bk.title)}</div>`;
+  el.innerHTML=html+`</div>`;
+  const b=el.querySelector("[data-nowdone]"); if(b) b.onclick=()=>toggleDone(b.dataset.nowdone);
+}
+
+/* ================= day view ================= */
+function itemHTML(it){
+  const isDone=!!done[it.key], c=[];
+  if(it.tm) c.push(`<span class="chip">Kl. ${fmtTime(it.tm)}</span>`);
+  if(it.p) c.push(`<span class="chip">${esc(it.p)}</span>`);
+  if(it.book) c.push(`<span class="chip book">Book forud</span>`);
+  if(it.alt) c.push(`<span class="chip alt">Alternativ</span>`);
+  if(it.moved) c.push(`<span class="chip alt">Flyttet fra ${dayOf(it.home).wd.toLowerCase()}</span>`);
+  if(it.custom) c.push(`<span class="chip mine">Tilføjet${it.by?" af "+esc(it.by):""}</span>`);
+  if(it.hidden) c.push(`<span class="chip alt">Skjult</span>`);
+  ITEMS[it.key]=it;
+  return `<div class="item${it.alt?" alt":""}${isDone?" done":""}" data-k="${it.key}">
+    <div class="itop"><h3>${esc(it.t)}</h3><button class="mbtn" data-menu="${it.key}" aria-label="Flyt eller ret">⋯</button><button class="check" data-check="${it.key}" aria-label="Marker som klaret" aria-pressed="${isDone}">${tick}</button></div>
     ${it.x?`<p>${esc(it.x)}</p>`:""}
-    ${(chips.length||go)?`<div class="meta">${chips.join("")}${go}</div>`:""}
-  </div>`;
+    ${(c.length||it.a)?`<div class="meta">${c.join("")}${goBtn(it.a)}</div>`:""}</div>`;
 }
-
+function bookingsFor(iso){
+  const rev=LS.get("nyc_bday",false);
+  const l=dataList("ticket:").filter(t=>t.date===iso&&(!t.secret||TODAY>=t.date||rev)).sort((a,b)=>(a.time||"").localeCompare(b.time||""));
+  return l.length?`<div class="bk">${l.map(t=>`<span>🎟️ ${t.time?fmtTime(t.time)+" ":""}${esc(t.title)}</span>`).join("")}</div>`:"";
+}
+function rainHTML(x){
+  const R=RAIN[x.d]; if(!R) return "";
+  const w=wxDay(x.d), wet=w&&w.rain>=50;
+  return `<details class="rain${wet?" wet":""}"${wet?" open":""}><summary>☔ Regnvejrsplan${wet?", der er regn i vente":""}</summary>
+    <p class="small" style="margin:0 0 10px">${esc(R.note)}</p>
+    ${R.items.map((it,i)=>`<div class="item"><div class="itop"><h3>${esc(it.t)}</h3></div><p>${esc(it.x)}</p>
+      <div class="meta">${it.p?`<span class="chip">${esc(it.p)}</span>`:""}<button class="btn sm ghost" data-rain="${i}">+ Læg ind</button>${goBtn(it.a)}</div></div>`).join("")}
+  </details>`;
+}
 function renderDay(){
-  const x=DAYS.find(d=>d.d===current);
-  const root=document.documentElement;
+  const x=dayOf(current), root=document.documentElement;
   root.style.setProperty("--day",x.c); root.style.setProperty("--dayInk",x.ci);
-  const revealed=LS.get("nyc_bday",false);
+  const revealed=LS.get("nyc_bday",false); ITEMS={};
   let body;
   if(x.secret && !revealed){
     body=`<div class="secret"><h3 style="margin:0;font-size:22px">Fødselsdagen er en overraskelse</h3>
       <p>Vil I overraskes, så giv telefonen til mor eller lad være med at kigge før fredag.</p>
       <button class="btn" id="reveal">Åbn overraskelsen</button></div>`;
   } else {
-    body=`<div class="timeline">`+x.blocks.map((b,bi)=>`<div class="block"><div class="when">${b.w}</div>`+
-      b.items.map((it,ii)=>itemHTML(it,x.d+"_"+bi+"_"+ii)).join("")+`</div>`).join("")+`</div>`;
-    if(x.secret) body+=`<p style="text-align:center"><button class="btn ghost" id="hide">Skjul planen igen</button></p>`;
+    const items=dayItems(x.d); let hid=0, tl=`<div class="timeline">`;
+    BLOCKS.forEach(b=>{ const l=items[b].filter(it=>{ if(it.hidden){hid++;return showHidden} return true });
+      if(l.length) tl+=`<div class="block"><div class="when">${b}</div>${l.map(itemHTML).join("")}</div>` });
+    tl+=`</div>`;
+    body=bookingsFor(x.d)+`<div style="height:12px"></div>`+tl+
+      `<div class="addrow"><button class="btn sm" id="additem">+ Tilføj punkt</button>${hid?`<button class="btn sm ghost" id="togglehid">${showHidden?"Gem skjulte":"Vis skjulte ("+hid+")"}</button>`:""}</div>`+
+      rainHTML(x)+(x.secret?`<p style="text-align:center"><button class="btn ghost sm" id="hide">Skjul planen igen</button></p>`:"");
   }
-  document.getElementById("day").innerHTML=`
-    <div class="dayhead"><div class="bigbullet">${x.n}</div>
-      <div><div class="date">${fullDate(x)}</div><h2>${esc(x.title)}</h2></div></div>
-    ${wxLine(x.d)}
-    <p class="intro">${esc(x.intro)}</p>${body}
+  $("#day").innerHTML=`
+    <div class="dayhead"><div class="bigbullet">${x.n}</div><div><div class="date">${WDN[x.wd]} ${x.n}. november</div><h2>${esc(x.title)}</h2></div></div>
+    ${wxLine(x.d)}<p class="intro">${esc(x.intro)}</p>${body}
     <p class="daybot"><a class="pill" href="${ALBUM}" target="_blank" rel="noopener">📷 Læg dagens billeder i albummet</a></p>`;
-  const r=document.getElementById("reveal"); if(r) r.onclick=()=>{LS.set("nyc_bday",true);renderDay();confetti()};
-  const h=document.getElementById("hide"); if(h) h.onclick=()=>{LS.set("nyc_bday",false);renderDay()};
-  bindChecks(document.getElementById("day"));
-}
-function fullDate(x){const n={Ons:"Onsdag",Tor:"Torsdag",Fre:"Fredag",Lør:"Lørdag",Søn:"Søndag",Man:"Mandag",Tir:"Tirsdag"}[x.wd];return n+" "+x.n+". november"}
-
-function bindChecks(scope){
-  scope.querySelectorAll(".check").forEach(b=>b.onclick=()=>{
-    const el=b.closest(".item"),k=el.dataset.k;
-    done[k]=!done[k]; if(!done[k]) delete done[k]; LS.set("nyc_done",done); syncOp("done",k,!!done[k]);
-    el.classList.toggle("done",!!done[k]); b.setAttribute("aria-pressed",!!done[k]);
+  const on=(id,f)=>{const e=document.getElementById(id); if(e) e.onclick=f};
+  on("reveal",()=>{LS.set("nyc_bday",true);refresh();confetti()});
+  on("hide",()=>{LS.set("nyc_bday",false);refresh()});
+  on("additem",()=>openItemForm(x.d,null));
+  on("togglehid",()=>{showHidden=!showHidden;renderDay()});
+  $("#day").querySelectorAll("[data-check]").forEach(b=>b.onclick=()=>toggleDone(b.dataset.check));
+  $("#day").querySelectorAll("[data-menu]").forEach(b=>b.onclick=()=>openItemMenu(ITEMS[b.dataset.menu]));
+  $("#day").querySelectorAll("[data-rain]").forEach(b=>b.onclick=()=>{
+    const it=RAIN[x.d].items[+b.dataset.rain];
+    setData("item:"+uid(),{day:x.d,block:it.b,t:it.t,x:it.x,p:it.p||"",a:it.a,ll:COORDS[it.a]||null,by:me});
+    toast("Lagt ind under "+it.b.toLowerCase());
   });
 }
+function toggleDone(k){ done[k]=!done[k]; if(!done[k]) delete done[k]; LS.set("nyc_done",done); syncOp("done",k,!!done[k]); refresh() }
 
-/* food */
+/* ================= sheets ================= */
+function openSheet(html){ $("#sbody").innerHTML=html; $("#sheet").hidden=false;
+  $("#sheet").querySelectorAll("[data-close]").forEach(b=>b.onclick=closeSheet);
+  const f=$("#sbody").querySelector("input.txt"); }
+function closeSheet(){ $("#sheet").hidden=true; $("#sbody").innerHTML="" }
+document.addEventListener("keydown",e=>{ if(e.key==="Escape"&&!$("#sheet").hidden) closeSheet() });
+function dayPicker(sel){ return `<div class="daypick">${DAYS.map(d=>`<button type="button" data-day="${d.d}" aria-pressed="${d.d===sel}" style="--c:${d.c};--ci:${d.ci}" aria-label="${WDN[d.wd]}">${d.n}</button>`).join("")}</div>` }
+function blockPicker(sel){ return `<div class="seg blk">${BLOCKS.map(b=>`<button type="button" data-blk="${b}" aria-pressed="${b===sel}">${b}</button>`).join("")}</div>` }
+function wirePickers(state){
+  $("#sbody").querySelectorAll("[data-day]").forEach(b=>b.onclick=()=>{state.day=b.dataset.day;$("#sbody").querySelectorAll("[data-day]").forEach(x=>x.setAttribute("aria-pressed",x===b))});
+  $("#sbody").querySelectorAll("[data-blk]").forEach(b=>b.onclick=()=>{state.block=b.dataset.blk;$("#sbody").querySelectorAll("[data-blk]").forEach(x=>x.setAttribute("aria-pressed",x===b))});
+}
+
+function openItemMenu(it){
+  if(!it) return;
+  const st={day:current,block:it.b};
+  openSheet(`<h3>${esc(it.t)}</h3><p class="small">Flyt punktet til en anden dag eller et andet tidspunkt. De andre ser ændringen.</p>
+    <label class="f">Dag</label>${dayPicker(st.day)}
+    <label class="f">Tidspunkt</label>${blockPicker(st.block)}
+    <div class="srow"><button class="btn" id="s-move">Flyt</button>
+      ${it.custom?`<button class="btn ghost" id="s-edit">Ret</button><button class="btn ghost danger" id="s-del">Slet</button>`
+        :`<button class="btn ghost" id="s-hide">${it.hidden?"Vis igen":"Skjul"}</button>${(it.moved||it.b!==origBlock(it.key))?`<button class="btn ghost" id="s-reset">Flyt tilbage</button>`:""}`}
+      <button class="btn ghost" data-close>Annuller</button></div>`);
+  wirePickers(st);
+  $("#s-move").onclick=()=>{
+    if(it.custom){ setData("item:"+it.cid,{...DATA["item:"+it.cid],day:st.day,block:st.block}) }
+    else { const mv={...(DATA["move:"+it.key]||{}),day:st.day,block:st.block};
+      if(st.day===it.home&&st.block===origBlock(it.key)){delete mv.day;delete mv.block}
+      setData("move:"+it.key,Object.keys(mv).filter(k=>mv[k]).length?mv:null) }
+    closeSheet(); if(st.day!==current) toast("Flyttet til "+fmtDate(st.day));
+  };
+  const on=(id,f)=>{const e=document.getElementById(id); if(e) e.onclick=f};
+  on("s-hide",()=>{ const mv={...(DATA["move:"+it.key]||{})}; if(it.hidden) delete mv.hidden; else mv.hidden=true;
+    setData("move:"+it.key,Object.keys(mv).length?mv:null); closeSheet() });
+  on("s-reset",()=>{ setData("move:"+it.key,null); closeSheet(); toast("Flyttet tilbage") });
+  on("s-edit",()=>openItemForm(current,it.cid));
+  on("s-del",()=>{ if(confirm("Slet punktet for alle?")){ setData("item:"+it.cid,null); closeSheet() } });
+}
+
+function openItemForm(day,cid){
+  const c=cid?DATA["item:"+cid]:{}, st={day:c.day||day,block:c.block||"Eftermiddag"};
+  openSheet(`<h3>${cid?"Ret punkt":"Tilføj punkt"}</h3>
+    <label class="f" for="f-t">Hvad</label><input class="txt" id="f-t" value="${esc(c.t)}" placeholder="Fx Pizza på Joe's">
+    <label class="f">Dag</label>${dayPicker(st.day)}
+    <label class="f">Tidspunkt</label>${blockPicker(st.block)}
+    <div class="row"><div><label class="f" for="f-tm">Klokkeslæt</label><input class="txt" id="f-tm" type="time" value="${esc(c.tm)}"></div>
+      <div><label class="f" for="f-p">Pris</label><input class="txt" id="f-p" value="${esc(c.p)}" placeholder="ca. $20"></div></div>
+    <label class="f" for="f-a">Adresse eller sted</label><input class="txt" id="f-a" value="${esc(c.a)}" placeholder="Fx 7 Carmine St">
+    <label class="f" for="f-x">Note</label><textarea class="txt" id="f-x">${esc(c.x)}</textarea>
+    <label class="f" for="f-by">Dit navn</label><input class="txt" id="f-by" value="${esc(c.by||me)}">
+    <div class="srow"><button class="btn" id="f-save">Gem</button><button class="btn ghost" data-close>Annuller</button></div>`);
+  wirePickers(st);
+  $("#f-save").onclick=async()=>{
+    const t=$("#f-t").value.trim(); if(!t){$("#f-t").focus();return}
+    const by=$("#f-by").value.trim(); if(by){me=by;LS.set("nyc_me",me)}
+    let a=$("#f-a").value.trim(), ll=c.ll||null;
+    if(a&&a!==c.a){ a=COORDS[a]?a:withCity(a); ll=COORDS[a]||await geocode(a) } if(!a) ll=null;
+    setData("item:"+(cid||uid()),{day:st.day,block:st.block,t,tm:$("#f-tm").value,p:$("#f-p").value.trim(),a,ll,x:$("#f-x").value.trim(),by});
+    closeSheet(); toast(cid?"Gemt":"Tilføjet til "+fmtDate(st.day));
+  };
+  setTimeout(()=>$("#f-t").focus(),50);
+}
+
+/* ================= tickets ================= */
+function renderTickets(){
+  const rev=LS.get("nyc_bday",false);
+  const l=dataList("ticket:").sort((a,b)=>((a.date||"9")+(a.time||"")).localeCompare((b.date||"9")+(b.time||"")));
+  $("#tickets").innerHTML=l.length?l.map(t=>{
+    if(t.secret&&TODAY<t.date&&!rev) return `<div class="card tk"><div class="itop"><h3 style="margin:0;flex:1">🎁 Hemmelig booking</h3><button class="mbtn" data-tk="${t.id}" aria-label="Ret">⋯</button></div><p class="small">${fmtDate(t.date)}. Afsløres på dagen.</p></div>`;
+    return `<div class="card tk"><div class="itop"><h3 style="margin:0;flex:1;font-size:18px">${esc(t.title)}</h3><button class="mbtn" data-tk="${t.id}" aria-label="Ret">⋯</button></div>
+      <p class="small">${[t.date?fmtDate(t.date):"",t.time?"kl. "+fmtTime(t.time):""].filter(Boolean).join(" ")}</p>
+      ${t.ref?`<p><span class="ref">${esc(t.ref)}</span> <button class="btn sm ghost" data-copy="${esc(t.ref)}">Kopier</button></p>`:""}
+      ${t.x?`<p class="small">${esc(t.x)}</p>`:""}
+      <div class="meta">${t.link?`<a class="pill" href="${esc(t.link)}" target="_blank" rel="noopener">🎟️ Åbn billet</a>`:""}${goBtn(t.a)}</div></div>`}).join("")
+    :`<p class="empty">Ingen bookinger endnu. Tilføj fx 9/11 museet, Summit og flyet, så har I alt samlet.</p>`;
+  $("#tickets").querySelectorAll("[data-tk]").forEach(b=>b.onclick=()=>openTicketForm(b.dataset.tk));
+  $("#tickets").querySelectorAll("[data-copy]").forEach(b=>b.onclick=()=>{navigator.clipboard&&navigator.clipboard.writeText(b.dataset.copy).then(()=>toast("Kopieret"),()=>{})});
+}
+function openTicketForm(id){
+  const t=id?DATA["ticket:"+id]:{};
+  openSheet(`<h3>${id?"Ret booking":"Ny booking"}</h3>
+    <label class="f" for="t-t">Hvad</label><input class="txt" id="t-t" value="${esc(t.title)}" placeholder="Fx 9/11 Museum">
+    <div class="row"><div><label class="f" for="t-d">Dato</label><input class="txt" id="t-d" type="date" min="2026-11-11" max="2026-11-17" value="${esc(t.date)}"></div>
+      <div><label class="f" for="t-tm">Klokkeslæt</label><input class="txt" id="t-tm" type="time" value="${esc(t.time)}"></div></div>
+    <label class="f" for="t-r">Bekræftelsesnummer</label><input class="txt" id="t-r" value="${esc(t.ref)}">
+    <label class="f" for="t-l">Link til billet eller booking</label><input class="txt" id="t-l" type="url" value="${esc(t.link)}" placeholder="https://">
+    <label class="f" for="t-a">Adresse</label><input class="txt" id="t-a" value="${esc(t.a)}">
+    <label class="f" for="t-x">Note</label><textarea class="txt" id="t-x" placeholder="Fx hvem har billetterne">${esc(t.x)}</textarea>
+    <label class="cb"><input type="checkbox" id="t-s" ${t.secret?"checked":""}> Hemmelig indtil dagen</label>
+    <div class="srow"><button class="btn" id="t-save">Gem</button>${id?`<button class="btn ghost danger" id="t-del">Slet</button>`:""}<button class="btn ghost" data-close>Annuller</button></div>`);
+  $("#t-save").onclick=()=>{
+    const title=$("#t-t").value.trim(); if(!title){$("#t-t").focus();return}
+    let link=$("#t-l").value.trim(); if(link&&!/^https?:\/\//i.test(link)) link="https://"+link;
+    let a=$("#t-a").value.trim(); if(a) a=COORDS[a]?a:withCity(a);
+    setData("ticket:"+(id||uid()),{title,date:$("#t-d").value,time:$("#t-tm").value,ref:$("#t-r").value.trim(),link,a,x:$("#t-x").value.trim(),secret:$("#t-s").checked});
+    closeSheet(); toast("Gemt");
+  };
+  const d=$("#t-del"); if(d) d.onclick=()=>{ if(confirm("Slet bookingen for alle?")){ setData("ticket:"+id,null); closeSheet() } };
+}
+
+/* ================= wishes ================= */
+function renderWishes(){
+  const l=dataList("wish:").sort((a,b)=>(b.ts||0)-(a.ts||0));
+  $("#wishes").innerHTML=l.length?l.map(w=>`<div class="item"><div class="itop"><h3>${esc(w.n)}</h3><button class="mbtn" data-wdel="${w.id}" aria-label="Slet">✕</button></div>
+      ${w.x?`<p>${esc(w.x)}</p>`:""}
+      <div class="meta">${w.by?`<span class="chip">Fra ${esc(w.by)}</span>`:""}${w.planned?`<span class="chip mine" style="border-color:#E91E63">Lagt på ${fmtDate(w.planned)}</span>`:""}
+        <button class="btn sm ghost" data-wplan="${w.id}">Læg på en dag</button>${goBtn(w.a||withCity(w.n))}</div></div>`).join("")
+    :`<p class="empty">Tomt indtil videre.</p>`;
+  $("#wishes").querySelectorAll("[data-wdel]").forEach(b=>b.onclick=()=>{ if(confirm("Fjern ønsket for alle?")) setData("wish:"+b.dataset.wdel,null) });
+  $("#wishes").querySelectorAll("[data-wplan]").forEach(b=>b.onclick=()=>planWish(b.dataset.wplan));
+}
+function openWishForm(){
+  openSheet(`<h3>Nyt ønske</h3>
+    <label class="f" for="w-n">Sted</label><input class="txt" id="w-n" placeholder="Fx Levain Bakery">
+    <label class="f" for="w-a">Adresse eller område</label><input class="txt" id="w-a" placeholder="Valgfri, hjælper kortet">
+    <label class="f" for="w-x">Hvorfor</label><textarea class="txt" id="w-x"></textarea>
+    <label class="f" for="w-by">Dit navn</label><input class="txt" id="w-by" value="${esc(me)}">
+    <div class="srow"><button class="btn" id="w-save">Gem</button><button class="btn ghost" data-close>Annuller</button></div>`);
+  $("#w-save").onclick=async()=>{
+    const n=$("#w-n").value.trim(); if(!n){$("#w-n").focus();return}
+    const by=$("#w-by").value.trim(); if(by){me=by;LS.set("nyc_me",me)}
+    const raw=$("#w-a").value.trim(), a=raw?withCity(raw):"";
+    $("#w-save").textContent="Finder stedet...";
+    const ll=await geocode(a||withCity(n))||(a?await geocode(withCity(n)):null);
+    setData("wish:"+uid(),{n,a:a||withCity(n),ll,x:$("#w-x").value.trim(),by,ts:Date.now()});
+    closeSheet(); toast(ll?"Tilføjet og sat på kortet":"Tilføjet");
+  };
+  setTimeout(()=>$("#w-n").focus(),50);
+}
+function planWish(id){
+  const w=DATA["wish:"+id], st={day:current,block:"Eftermiddag"};
+  openSheet(`<h3>${esc(w.n)}</h3><p class="small">Vælg hvornår, så kommer det ind i planen.</p>
+    <label class="f">Dag</label>${dayPicker(st.day)}<label class="f">Tidspunkt</label>${blockPicker(st.block)}
+    <div class="srow"><button class="btn" id="p-ok">Læg ind</button><button class="btn ghost" data-close>Annuller</button></div>`);
+  wirePickers(st);
+  $("#p-ok").onclick=()=>{
+    setData("item:"+uid(),{day:st.day,block:st.block,t:w.n,x:w.x||"",a:w.a,ll:w.ll||null,by:w.by||me});
+    setData("wish:"+id,{...w,planned:st.day}); closeSheet(); toast("Lagt på "+fmtDate(st.day));
+  };
+}
+
+/* ================= food ================= */
 let foodGroup="Alle", foodNear=false;
 function renderFood(){
   const groups=["Alle",...new Set(FOOD.map(f=>f.g))];
-  document.getElementById("foodfilter").innerHTML=`<button aria-pressed="${foodNear}" data-near="1">📍 Nærmest først</button>`+groups.map(g=>`<button aria-pressed="${g===foodGroup}" data-g="${g}">${g}</button>`).join("");
-  document.querySelectorAll("#foodfilter button").forEach(b=>b.onclick=()=>{
-    if(b.dataset.near){foodNear=!foodNear;if(foodNear&&!myPos)locate()}else foodGroup=b.dataset.g;renderFood()});
+  $("#foodfilter").innerHTML=`<button aria-pressed="${foodNear}" data-near="1">📍 Nærmest først</button>`+groups.map(g=>`<button aria-pressed="${g===foodGroup}" data-g="${g}">${g}</button>`).join("");
+  $("#foodfilter").querySelectorAll("button").forEach(b=>b.onclick=()=>{ if(b.dataset.near){foodNear=!foodNear;if(foodNear&&!myPos)locate()} else foodGroup=b.dataset.g; renderFood() });
   let list=FOOD.filter(f=>foodGroup==="Alle"||f.g===foodGroup);
   const sorted=foodNear&&myPos;
   if(sorted) list=list.filter(f=>COORDS[f.a]).map(f=>({...f,m:distM(myPos,COORDS[f.a])})).sort((a,b)=>a.m-b.m);
   let html="",last="";
-  list.forEach((f,i)=>{
+  list.forEach(f=>{
     if(!sorted&&foodGroup==="Alle"&&f.g!==last){html+=`<h4>${f.g}</h4>`;last=f.g}
     const key="food_"+f.n;
-    html+=`<div class="item${done[key]?" done":""}" data-k="${esc(key)}">
-      <div class="itop"><h3>${esc(f.n)} <span class="price">${f.p}</span></h3><button class="check" aria-label="Marker som prøvet" aria-pressed="${!!done[key]}">${tick}</button></div>
-      <p>${esc(f.x)}</p>${f.a?`<div class="meta">${f.m!=null?`<span class="chip dist">${fmtDist(f.m)}</span>`:""}<span class="chip">${esc(f.a.split(",")[0])}</span><a class="go" href="${dirURL(f.a)}" target="_blank" rel="noopener">${pin}Vis vej</a></div>`:""}</div>`;
+    html+=`<div class="item${done[key]?" done":""}"><div class="itop"><h3>${esc(f.n)} <span class="price">${f.p}</span></h3><button class="check" data-check="${esc(key)}" aria-label="Marker som prøvet" aria-pressed="${!!done[key]}">${tick}</button></div>
+      <p>${esc(f.x)}</p>${f.a?`<div class="meta">${f.m!=null?`<span class="chip dist">${fmtDist(f.m)}</span>`:""}<span class="chip">${esc(f.a.split(",")[0])}</span>${goBtn(f.a)}</div>`:""}</div>`;
   });
-  document.getElementById("foodlist").innerHTML=html;
-  bindChecks(document.getElementById("foodlist"));
+  $("#foodlist").innerHTML=html;
+  $("#foodlist").querySelectorAll("[data-check]").forEach(b=>b.onclick=()=>toggleDone(b.dataset.check));
 }
 
-/* todos */
+/* ================= todos and tip ================= */
 function renderTodos(){
-  const t=TODO;
-  document.getElementById("todos").innerHTML=TODOS.map(([k,a,b])=>
-    `<label class="todo${t[k]?" done":""}"><input type="checkbox" data-k="${k}" ${t[k]?"checked":""}><span>${esc(a)}<small>${esc(b)}</small></span></label>`).join("");
-  document.querySelectorAll("#todos input").forEach(i=>i.onchange=()=>{TODO[i.dataset.k]=i.checked;if(!i.checked)delete TODO[i.dataset.k];LS.set("nyc_todo",TODO);syncOp("todo",i.dataset.k,i.checked);i.closest(".todo").classList.toggle("done",i.checked)});
+  $("#todos").innerHTML=TODOS.map(([k,a,b])=>`<label class="todo${TODO[k]?" done":""}"><input type="checkbox" data-k="${k}" ${TODO[k]?"checked":""}><span>${esc(a)}<small>${esc(b)}</small></span></label>`).join("");
+  $("#todos").querySelectorAll("input").forEach(i=>i.onchange=()=>{ TODO[i.dataset.k]=i.checked; if(!i.checked) delete TODO[i.dataset.k]; LS.set("nyc_todo",TODO); syncOp("todo",i.dataset.k,i.checked); i.closest(".todo").classList.toggle("done",i.checked) });
 }
-
-/* calculators */
 let tip=LS.get("nyc_tip",20);
-const rateEl=document.getElementById("rate");
-rateEl.value=LS.get("nyc_rate",6.5);
-const kr=v=>Math.round(v).toLocaleString("da-DK")+" kr.";
 const usd=v=>"$"+v.toFixed(2).replace(".",",");
 function calcBill(){
-  const b=parseFloat(document.getElementById("bill").value)||0, p=Math.max(1,parseInt(document.getElementById("ppl").value)||1), r=parseFloat(rateEl.value)||0;
-  const tax=b*0.08875, tp=b*tip/100, tot=b+tax+tp;
-  document.getElementById("billres").innerHTML=`<div class="small">I alt med skat og ${tip} % drikkepenge</div>
-    <div class="big">${usd(tot)}</div><div class="small">Skat ${usd(tax)} og drikkepenge ${usd(tp)}</div>
-    <div style="margin-top:10px" class="small">Pr. person</div><div class="big">${usd(tot/p)}</div><div class="small">ca. ${kr(tot/p*r)}</div>`;
+  const b=parseFloat($("#bill").value)||0, tax=b*0.08875, tp=b*tip/100;
+  $("#billres").innerHTML=`<div class="small">I alt med skat og ${tip} % drikkepenge</div><div class="big">${usd(b+tax+tp)}</div><div class="small">Skat ${usd(tax)} og drikkepenge ${usd(tp)}. Drikkepenge regnes af beløbet før skat.</div>`;
 }
-function calcUsd(){
-  const v=parseFloat(document.getElementById("usd").value)||0, r=parseFloat(rateEl.value)||0;
-  document.getElementById("usdres").innerHTML=`<div class="big">${kr(v*r)}</div><div class="small">${usd(v)} med kurs ${String(r).replace(".",",")}. Plus skat på 8,875 %: ${kr(v*1.08875*r)}</div>`;
-}
-document.getElementById("tipseg").innerHTML=[0,15,18,20,22].map(v=>`<button aria-pressed="${v===tip}" data-v="${v}">${v} %</button>`).join("");
-document.querySelectorAll("#tipseg button").forEach(b=>b.onclick=()=>{tip=+b.dataset.v;LS.set("nyc_tip",tip);document.querySelectorAll("#tipseg button").forEach(x=>x.setAttribute("aria-pressed",x===b));calcBill()});
-["bill","ppl"].forEach(id=>document.getElementById(id).oninput=calcBill);
-rateEl.oninput=()=>{LS.set("nyc_rate",parseFloat(rateEl.value)||0);calcBill();calcUsd()};
-document.getElementById("usd").oninput=calcUsd;
+$("#tipseg").innerHTML=[15,18,20,22].map(v=>`<button aria-pressed="${v===tip}" data-v="${v}">${v} %</button>`).join("");
+$("#tipseg").querySelectorAll("button").forEach(b=>b.onclick=()=>{tip=+b.dataset.v;LS.set("nyc_tip",tip);$("#tipseg").querySelectorAll("button").forEach(x=>x.setAttribute("aria-pressed",x===b));calcBill()});
+$("#bill").oninput=calcBill;
 
-/* tabs */
-document.querySelectorAll("nav.tabs button").forEach(b=>b.onclick=()=>{
-  document.querySelectorAll("nav.tabs button").forEach(x=>x.setAttribute("aria-selected",x===b));
-  document.querySelectorAll(".page").forEach(p=>p.classList.toggle("on",p.id===b.dataset.p));
-  if(b.dataset.p==="p-plan") renderDay(); else if(b.dataset.p==="p-mad") renderFood(); else if(b.dataset.p==="p-kort") initMap();
-  window.scrollTo({top:0});
-});
-
-/* confetti */
-function confetti(){
-  if(window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-  const cv=document.getElementById("confetti"),ctx=cv.getContext("2d");
-  cv.width=innerWidth;cv.height=innerHeight;
-  const cols=["#FCCC0A","#0039A6","#EE352E","#00933C","#FF6319","#B933AD"];
-  const ps=Array.from({length:140},()=>({x:Math.random()*cv.width,y:-20-Math.random()*cv.height*.5,r:4+Math.random()*5,c:cols[Math.random()*6|0],vy:2+Math.random()*3,vx:-1+Math.random()*2,a:Math.random()*6}));
-  let f=0;(function tickF(){ctx.clearRect(0,0,cv.width,cv.height);
-    ps.forEach(p=>{p.y+=p.vy;p.x+=p.vx+Math.sin((f+p.a)/12);ctx.fillStyle=p.c;ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,7);ctx.fill()});
-    if(++f<200)requestAnimationFrame(tickF);else ctx.clearRect(0,0,cv.width,cv.height)})();
-}
-
-let TODO = LS.get("nyc_todo",{});
-
-/* ---------- weather ---------- */
+/* ================= weather ================= */
 const WX_URL="https://api.open-meteo.com/v1/forecast?latitude=40.7131&longitude=-73.9925&current=temperature_2m,apparent_temperature,weather_code,wind_speed_10m&daily=weather_code,temperature_2m_max,temperature_2m_min,precipitation_probability_max,sunset&timezone=America%2FNew_York&forecast_days=16&wind_speed_unit=ms";
 let WX=LS.get("nyc_wx",null);
 function wxInfo(c){
@@ -742,49 +990,43 @@ function wxInfo(c){
   if(c>=95) return ["⛈️","Torden"]; return ["🌡️",""];
 }
 const r0=v=>Math.round(v);
-function wxDay(iso){
-  if(!WX) return null; const d=WX.j.daily, i=d.time.indexOf(iso); if(i<0) return null;
-  return {code:d.weather_code[i],max:d.temperature_2m_max[i],min:d.temperature_2m_min[i],rain:d.precipitation_probability_max[i],sunset:(d.sunset[i]||"").slice(11,16).replace(":",".")};
-}
+function wxDay(iso){ if(!WX) return null; const d=WX.j.daily, i=d.time.indexOf(iso); if(i<0) return null;
+  return {code:d.weather_code[i],max:d.temperature_2m_max[i],min:d.temperature_2m_min[i],rain:d.precipitation_probability_max[i],sunset:(d.sunset[i]||"").slice(11,16).replace(":",".")} }
 function wxLine(iso){
   const w=wxDay(iso);
   if(!w) return `<div class="wx"><span class="e">🗓️</span><div>Normalt 5 til 12° i midten af november<small>Den rigtige vejrudsigt dukker op her ca. 16 dage før.</small></div></div>`;
-  const [e,t]=wxInfo(w.code);
-  const tip = w.rain>=50?"Tag paraply med. ":(w.max<=6?"Tag hue og handsker med. ":"");
-  return `<div class="wx"><span class="e">${e}</span><div><b>${t}, ${r0(w.max)}°</b> om dagen og ${r0(w.min)}° om natten<small>${tip}${w.rain??0} % risiko for regn. Solnedgang ${w.sunset}.</small></div></div>`;
+  const [e,t]=wxInfo(w.code), tipT=w.rain>=50?"Tag paraply med. ":(w.max<=6?"Tag hue og handsker med. ":"");
+  return `<div class="wx"><span class="e">${e}</span><div><b>${t}, ${r0(w.max)}°</b> om dagen og ${r0(w.min)}° om natten<small>${tipT}${w.rain??0} % risiko for regn. Solnedgang ${w.sunset}.</small></div></div>`;
 }
 function renderWx(){
-  const now=document.getElementById("wxnow"), trip=document.getElementById("wxtrip");
-  if(WX&&WX.j.current){
-    const c=WX.j.current,[e,t]=wxInfo(c.weather_code);
-    const age=Math.round((Date.now()-WX.t)/60000);
-    now.innerHTML=`<div class="wx" style="margin:0 0 10px"><span class="e">${e}</span><div><b>Lige nu i New York: ${r0(c.temperature_2m)}°</b>, føles som ${r0(c.apparent_temperature)}°<small>${t}, vind ${r0(c.wind_speed_10m)} m/s. Opdateret for ${age<2?"lidt siden":age+" min. siden"}.</small></div></div>`;
+  const now=$("#wxnow"), trip=$("#wxtrip"); if(!now) return;
+  if(WX&&WX.j.current){ const c=WX.j.current,[e,t]=wxInfo(c.weather_code), age=Math.round((Date.now()-WX.t)/60000);
+    now.innerHTML=`<div class="wx" style="margin:0 0 10px"><span class="e">${e}</span><div><b>Lige nu i New York: ${r0(c.temperature_2m)}°</b>, føles som ${r0(c.apparent_temperature)}°<small>${t}, vind ${r0(c.wind_speed_10m)} m/s. Opdateret ${age<2?"lige nu":"for "+age+" min. siden"}.</small></div></div>`;
   } else now.innerHTML="";
   trip.innerHTML=DAYS.map(d=>{const w=wxDay(d.d); if(!w) return `<div class="wxd">${d.wd}<span class="e">·</span><b>?</b></div>`;
-    const [e]=wxInfo(w.code); return `<div class="wxd">${d.wd}<span class="e">${e}</span><b>${r0(w.max)}°</b>${r0(w.min)}°</div>`}).join("");
+    return `<div class="wxd">${d.wd}<span class="e">${wxInfo(w.code)[0]}</span><b>${r0(w.max)}°</b>${r0(w.min)}°</div>`}).join("");
 }
-async function loadWx(){
-  try{const r=await fetch(WX_URL,{cache:"no-store"}); if(!r.ok) return; WX={t:Date.now(),j:await r.json()}; LS.set("nyc_wx",WX);
-    renderWx(); if(document.getElementById("p-plan").classList.contains("on")) renderDay();}catch(e){}
-}
+async function loadWx(){ try{ const r=await fetch(WX_URL,{cache:"no-store"}); if(!r.ok) return; WX={t:Date.now(),j:await r.json()}; LS.set("nyc_wx",WX); renderWx(); if(isPage("p-plan")) renderDay() }catch(e){} }
 
-/* ---------- shared checklist ---------- */
+/* ================= sync ================= */
 let queue=LS.get("nyc_queue",[]), syncState="wait", inFlight=false;
-function syncOp(s,k,v){queue.push({s,k,v:!!v,t:Date.now()});LS.set("nyc_queue",queue);syncNow()}
+function syncOp(s,k,v){ queue.push({s,k,v:s==="data"?v:!!v,t:Date.now()}); LS.set("nyc_queue",queue); syncNow() }
 function renderSync(){
-  const el=document.getElementById("sync"); if(!el) return;
-  const txt={on:"Delt med de andre. Opdateres automatisk.",wait:queue.length?"Offline. Deles når du har net igen.":"Tjekker forbindelse",off:"Gemmes kun på denne telefon."}[syncState];
-  el.className="sync "+syncState; el.querySelector("span").textContent=txt;
+  const el=$("#sync"); if(!el) return;
+  el.className="sync "+syncState;
+  el.querySelector("span").textContent={on:"Delt med de andre. Opdateres automatisk.",wait:queue.length?"Offline. Deles når du har net igen.":"Tjekker forbindelse",off:"Gemmes kun på denne telefon."}[syncState];
 }
 function applyServer(s){
-  const nd={},nt={};
+  const nd={},nt={},nD={};
   for(const k in (s.done||{})) if(s.done[k].v) nd[k]=true;
   for(const k in (s.todo||{})) if(s.todo[k].v) nt[k]=true;
-  queue.forEach(o=>{const m=o.s==="done"?nd:nt; if(o.v) m[o.k]=true; else delete m[o.k]});
-  const ch1=JSON.stringify(nd)!==JSON.stringify(done), ch2=JSON.stringify(nt)!==JSON.stringify(TODO);
-  if(ch1){done=nd;LS.set("nyc_done",done)} if(ch2){TODO=nt;LS.set("nyc_todo",TODO)}
-  if(ch1){ if(document.getElementById("p-plan").classList.contains("on")) renderDay(); if(document.getElementById("p-mad").classList.contains("on")) renderFood(); }
-  if(ch2) renderTodos();
+  for(const k in (s.data||{})) if(s.data[k].v!=null) nD[k]=s.data[k].v;
+  queue.forEach(o=>{ const m=o.s==="done"?nd:o.s==="todo"?nt:nD; if(o.s==="data"){ if(o.v==null) delete m[o.k]; else m[o.k]=o.v } else if(o.v) m[o.k]=true; else delete m[o.k] });
+  let ch=false;
+  if(JSON.stringify(nd)!==JSON.stringify(done)){done=nd;LS.set("nyc_done",done);ch=true}
+  if(JSON.stringify(nt)!==JSON.stringify(TODO)){TODO=nt;LS.set("nyc_todo",TODO);ch=true}
+  if(JSON.stringify(nD)!==JSON.stringify(DATA)){DATA=nD;LS.set("nyc_data",DATA);ch=true}
+  if(ch) refresh();
 }
 async function syncNow(){
   if(inFlight||syncState==="off") return; inFlight=true;
@@ -793,42 +1035,39 @@ async function syncNow(){
     const r=await fetch("/api/state",batch.length?{method:"POST",headers:{"content-type":"application/json"},body:JSON.stringify(batch),cache:"no-store"}:{cache:"no-store"});
     const ct=r.headers.get("content-type")||"";
     if(!r.ok||!ct.includes("json")){ if(r.status===404||!ct.includes("json")) syncState="off"; throw 0 }
-    const s=await r.json();
-    queue=queue.slice(batch.length); LS.set("nyc_queue",queue);
-    syncState="on"; applyServer(s);
+    const s=await r.json(); queue=queue.slice(batch.length); LS.set("nyc_queue",queue); syncState="on"; applyServer(s);
   }catch(e){ if(syncState!=="off") syncState="wait" }
   inFlight=false; renderSync();
 }
-setInterval(()=>{if(document.visibilityState==="visible") syncNow()},20000);
-document.addEventListener("visibilitychange",()=>{if(document.visibilityState==="visible"){syncNow();loadWx()}});
-addEventListener("online",()=>{syncNow();loadWx()});
+setInterval(()=>{ if(document.visibilityState==="visible"){ syncNow(); if(dayOf(TODAY)) renderNow() } },20000);
+document.addEventListener("visibilitychange",()=>{ if(document.visibilityState==="visible"){ syncNow(); loadWx(); renderNow() } });
+addEventListener("online",()=>{ syncNow(); loadWx() });
 
-/* ---------- map and location ---------- */
+/* ================= map ================= */
 let map=null, layer=null, meDot=null, meRing=null, myPos=null, watchId=null, centered=false;
-let mapFilter=(DAYS.find(x=>x.d===TODAY)||{}).d||"all";
-function distM(a,b){const R=6371000,t=Math.PI/180,dLa=(b[0]-a.lat)*t,dLo=(b[1]-a.lng)*t;
-  const h=Math.sin(dLa/2)**2+Math.cos(a.lat*t)*Math.cos(b[0]*t)*Math.sin(dLo/2)**2;return 2*R*Math.asin(Math.sqrt(h))}
+let mapFilter=dayOf(TODAY)?TODAY:"all";
+function distM(a,b){const R=6371000,t=Math.PI/180,dLa=(b[0]-a.lat)*t,dLo=(b[1]-a.lng)*t;const h=Math.sin(dLa/2)**2+Math.cos(a.lat*t)*Math.cos(b[0]*t)*Math.sin(dLo/2)**2;return 2*R*Math.asin(Math.sqrt(h))}
 function fmtDist(m){ if(m<1000) return Math.round(m/10)*10+" m, ca. "+Math.max(1,Math.round(m/80))+" min"; if(m<3000) return (m/1000).toFixed(1).replace(".",",")+" km, ca. "+Math.round(m/80)+" min"; return (m/1000).toFixed(1).replace(".",",")+" km"}
 function allPlaces(){
   const out=[],seen=new Set(),rev=LS.get("nyc_bday",false);
-  DAYS.forEach(d=>{ if(d.secret&&!rev) return; d.blocks.forEach(b=>b.items.forEach(it=>{
-    if(!it.a||it.a===HOTEL||!COORDS[it.a]) return; const key=it.t+it.a; if(seen.has(key)) return; seen.add(key);
-    out.push({n:it.t,a:it.a,ll:COORDS[it.a],c:d.c,g:d.d,lab:d.wd+" "+d.n+". nov"})}))});
-  FOOD.forEach(f=>{ if(!f.a||!COORDS[f.a]) return; out.push({n:f.n,a:f.a,ll:COORDS[f.a],c:"#1B2233",g:"food",lab:"Mad "+f.p})});
+  DAYS.forEach(d=>{ if(d.secret&&!rev) return; const items=dayItems(d.d);
+    BLOCKS.forEach(b=>items[b].forEach(it=>{ if(it.hidden||!it.a||it.a===HOTEL) return; const ll=it.ll||COORDS[it.a]; if(!ll) return;
+      const k=it.t+it.a; if(seen.has(k)) return; seen.add(k); out.push({n:it.t,a:it.a,ll,c:d.c,g:d.d,lab:d.wd+" "+d.n+". nov"}) })) });
+  FOOD.forEach(f=>{ if(f.a&&COORDS[f.a]) out.push({n:f.n,a:f.a,ll:COORDS[f.a],c:"#1B2233",g:"food",lab:"Mad "+f.p}) });
+  dataList("wish:").forEach(w=>{ if(w.ll) out.push({n:w.n,a:w.a,ll:w.ll,c:"#E91E63",g:"wish",lab:"Ønske"+(w.by?" fra "+w.by:"")}) });
   return out;
 }
-function popup(p){return `<b>${esc(p.n)}</b><br>${esc(p.lab||"")}${myPos?"<br>"+fmtDist(distM(myPos,p.ll)):""}<br><a href="${dirURL(p.a)}" target="_blank" rel="noopener">Vis vej</a>`}
+const popup=p=>`<b>${esc(p.n)}</b><br>${esc(p.lab||"")}${myPos?"<br>"+fmtDist(distM(myPos,p.ll)):""}<br><a href="${dirURL(p.a)}" target="_blank" rel="noopener">Vis vej</a>`;
 function renderMapFilter(){
-  const opts=[["all","Alle"],...DAYS.map(d=>[d.d,d.wd+" "+d.n]),["food","Mad"]];
-  const el=document.getElementById("mapfilter");
-  el.innerHTML=opts.map(([k,l])=>`<button aria-pressed="${k===mapFilter}" data-k="${k}">${l}</button>`).join("");
-  el.querySelectorAll("button").forEach(b=>b.onclick=()=>{mapFilter=b.dataset.k;renderMapFilter();drawMarkers(true)});
+  const opts=[["all","Alle"],...DAYS.map(d=>[d.d,d.wd+" "+d.n]),["food","Mad"],["wish","Ønsker"]];
+  $("#mapfilter").innerHTML=opts.map(([k,l])=>`<button aria-pressed="${k===mapFilter}" data-k="${k}">${l}</button>`).join("");
+  $("#mapfilter").querySelectorAll("button").forEach(b=>b.onclick=()=>{mapFilter=b.dataset.k;renderMapFilter();drawMarkers(true)});
 }
 function initMap(){
-  renderMapFilter(); renderNear();
-  if(!window.L){document.getElementById("map").innerHTML='<p style="padding:16px">Kortet skal bruge internet første gang, det åbnes.</p>';return}
+  renderMapFilter(); renderNear(); renderWishes();
+  if(!window.L){$("#map").innerHTML='<p style="padding:16px">Kortet skal bruge internet første gang, det åbnes.</p>';return}
   if(!map){
-    map=L.map("map",{zoomControl:false,attributionControl:true}).setView([40.72,-73.99],13);
+    map=L.map("map",{zoomControl:false}).setView([40.72,-73.99],13);
     L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png",{maxZoom:19,attribution:'&copy; OpenStreetMap'}).addTo(map);
     layer=L.layerGroup().addTo(map);
     L.circleMarker(COORDS[HOTEL],{radius:11,color:"#fff",weight:3,fillColor:"#1B2233",fillOpacity:1}).bindPopup(`<b>Hotellet</b><br>95 Henry St<br><a href="${dirURL(HOTEL)}" target="_blank" rel="noopener">Vis vej</a>`).addTo(map);
@@ -838,44 +1077,64 @@ function initMap(){
 function drawMarkers(fit){
   if(!map) return; layer.clearLayers();
   const pts=allPlaces().filter(p=>mapFilter==="all"||p.g===mapFilter);
-  pts.forEach(p=>L.circleMarker(p.ll,{radius:8,color:"#fff",weight:2,fillColor:p.c,fillOpacity:1}).bindPopup(popup(p)).addTo(layer));
+  pts.forEach(p=>L.circleMarker(p.ll,{radius:p.g==="wish"?9:8,color:"#fff",weight:2,fillColor:p.c,fillOpacity:1}).bindPopup(popup(p)).addTo(layer));
   if(fit&&pts.length) map.fitBounds(L.latLngBounds(pts.map(p=>p.ll).concat([COORDS[HOTEL]])),{padding:[28,28],maxZoom:15});
 }
 function showMe(){
   if(!map||!myPos) return; const ll=[myPos.lat,myPos.lng];
-  if(!meDot){meRing=L.circle(ll,{radius:myPos.acc||30,color:"#1a73e8",weight:1,fillOpacity:.12}).addTo(map);
-    meDot=L.circleMarker(ll,{radius:8,color:"#fff",weight:3,fillColor:"#1a73e8",fillOpacity:1}).addTo(map)}
-  else{meDot.setLatLng(ll);meRing.setLatLng(ll).setRadius(myPos.acc||30)}
-  if(!centered){map.setView(ll,15);centered=true}
+  if(!meDot){ meRing=L.circle(ll,{radius:myPos.acc||30,color:"#1a73e8",weight:1,fillOpacity:.12}).addTo(map); meDot=L.circleMarker(ll,{radius:8,color:"#fff",weight:3,fillColor:"#1a73e8",fillOpacity:1}).addTo(map) }
+  else { meDot.setLatLng(ll); meRing.setLatLng(ll).setRadius(myPos.acc||30) }
+  if(!centered){ map.setView(ll,15); centered=true }
 }
 function locate(){
-  if(!navigator.geolocation){document.getElementById("near").innerHTML='<p class="lead">Telefonen kan ikke dele position her.</p>';return}
+  if(!navigator.geolocation){$("#near").innerHTML='<p class="empty">Telefonen kan ikke dele position her.</p>';return}
   if(watchId!==null){ if(map&&myPos) map.setView([myPos.lat,myPos.lng],16); return }
-  document.getElementById("near").innerHTML='<p class="lead">Finder din position...</p>';
+  $("#near").innerHTML='<p class="empty">Finder din position...</p>';
   watchId=navigator.geolocation.watchPosition(pos=>{
     myPos={lat:pos.coords.latitude,lng:pos.coords.longitude,acc:pos.coords.accuracy};
-    showMe(); renderNear(); if(foodNear&&document.getElementById("p-mad").classList.contains("on")) renderFood();
-  },()=>{watchId=null;document.getElementById("near").innerHTML='<p class="lead">Kunne ikke finde din position. Tjek at Safari eller Chrome har lov til at bruge lokalitet under Indstillinger.</p>'},
+    showMe(); renderNear(); if(foodNear&&isPage("p-mad")) renderFood();
+  },()=>{watchId=null;$("#near").innerHTML='<p class="empty">Kunne ikke finde din position. Tjek at Safari eller Chrome har lov til at bruge lokalitet under Indstillinger.</p>'},
   {enableHighAccuracy:true,maximumAge:15000,timeout:20000});
 }
-document.getElementById("locbtn").onclick=locate;
+$("#locbtn").onclick=locate;
 function renderNear(){
-  const el=document.getElementById("near"); if(!myPos) return;
+  const el=$("#near"); if(!myPos) return;
   const seen=new Set();
-  const list=allPlaces().filter(p=>{if(seen.has(p.n))return false;seen.add(p.n);return true})
-    .map(p=>({...p,m:distM(myPos,p.ll)})).sort((a,b)=>a.m-b.m).slice(0,8);
-  if(list[0]&&list[0].m>30000){el.innerHTML='<p class="lead">Du er langt fra New York lige nu. Listen virker, når I er fremme.</p>';return}
-  el.innerHTML=list.map(p=>`<div class="item"><div class="itop"><h3>${esc(p.n)}</h3></div>
-    <div class="meta"><span class="chip dist">${fmtDist(p.m)}</span><span class="chip" style="background:${p.c};color:${p.c==="#FCCC0A"?"#1B2233":"#fff"}">${esc(p.lab)}</span>
-    <a class="go" href="${dirURL(p.a)}" target="_blank" rel="noopener">${pin}Vis vej</a></div></div>`).join("");
+  const list=allPlaces().filter(p=>{if(seen.has(p.n))return false;seen.add(p.n);return true}).map(p=>({...p,m:distM(myPos,p.ll)})).sort((a,b)=>a.m-b.m).slice(0,8);
+  if(list[0]&&list[0].m>30000){el.innerHTML='<p class="empty">Du er langt fra New York lige nu. Listen virker, når I er fremme.</p>';return}
+  el.innerHTML=list.map(p=>`<div class="item"><div class="itop"><h3>${esc(p.n)}</h3></div><div class="meta"><span class="chip dist">${fmtDist(p.m)}</span><span class="chip" style="background:${p.c};color:${p.c==="#FCCC0A"?"#1B2233":"#fff"}">${esc(p.lab)}</span>${goBtn(p.a)}</div></div>`).join("");
 }
 
-/* ---------- offline ---------- */
+/* ================= tabs, refresh, confetti ================= */
+document.querySelectorAll("nav.tabs button").forEach(b=>b.onclick=()=>{
+  document.querySelectorAll("nav.tabs button").forEach(x=>x.setAttribute("aria-selected",x===b));
+  document.querySelectorAll(".page").forEach(p=>p.classList.toggle("on",p.id===b.dataset.p));
+  if(b.dataset.p==="p-plan") renderDay(); else if(b.dataset.p==="p-mad") renderFood(); else if(b.dataset.p==="p-kort") initMap(); else if(b.dataset.p==="p-tools") renderTickets();
+  window.scrollTo({top:0});
+});
+function refresh(){
+  renderNow();
+  if(isPage("p-plan")) renderDay();
+  if(isPage("p-mad")) renderFood();
+  if(isPage("p-kort")){ renderWishes(); renderNear(); drawMarkers(false) }
+  renderTodos(); renderTickets();
+}
+$("#addticket").onclick=()=>openTicketForm(null);
+$("#addwish").onclick=openWishForm;
+$("#homebtn").href=dirURL(HOTEL);
+
+function confetti(){
+  if(window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  const cv=$("#confetti"),ctx=cv.getContext("2d"); cv.width=innerWidth; cv.height=innerHeight;
+  const cols=["#FCCC0A","#0039A6","#EE352E","#00933C","#FF6319","#B933AD"];
+  const ps=Array.from({length:140},()=>({x:Math.random()*cv.width,y:-20-Math.random()*cv.height*.5,r:4+Math.random()*5,c:cols[Math.random()*6|0],vy:2+Math.random()*3,vx:-1+Math.random()*2,a:Math.random()*6}));
+  let f=0;(function step(){ctx.clearRect(0,0,cv.width,cv.height);ps.forEach(p=>{p.y+=p.vy;p.x+=p.vx+Math.sin((f+p.a)/12);ctx.fillStyle=p.c;ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,7);ctx.fill()});if(++f<200)requestAnimationFrame(step);else ctx.clearRect(0,0,cv.width,cv.height)})();
+}
+
 if("serviceWorker" in navigator && location.protocol==="https:") navigator.serviceWorker.register("/sw.js").catch(()=>{});
 
-document.getElementById("homebtn").href=dirURL(HOTEL);
-status();renderStops();renderDay();renderTodos();calcBill();calcUsd();renderWx();renderSync();loadWx();syncNow();
-if(TODAY==="2026-11-13" && !LS.get("nyc_bday_confetti",false)){LS.set("nyc_bday_confetti",true);setTimeout(confetti,400)}
+status(); renderStops(); renderNow(); renderDay(); renderTodos(); renderTickets(); calcBill(); renderWx(); renderSync(); loadWx(); syncNow();
+if(TODAY==="2026-11-13" && !LS.get("nyc_bday_confetti",false)){ LS.set("nyc_bday_confetti",true); setTimeout(confetti,400) }
 </script>
 </body>
 </html>
