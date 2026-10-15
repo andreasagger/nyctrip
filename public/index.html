@@ -1179,7 +1179,7 @@ function initMap(){
 }
 function drawMarkers(fit){
   if(!map) return; layer.clearLayers();
-  const pts=allPlaces().filter(p=>mapFilter==="all"||p.g===mapFilter);
+  const pts=allPlaces().filter(p=>mapFilter==="all"?!/JFK Airport/.test(p.a):p.g===mapFilter);
   pts.forEach(p=>L.circleMarker(p.ll,{radius:p.g==="wish"?9:8,color:"#fff",weight:2,fillColor:p.c,fillOpacity:1}).bindPopup(popup(p)).addTo(layer));
   if(fit&&pts.length) map.fitBounds(L.latLngBounds(pts.map(p=>p.ll).concat([COORDS[HOTEL]])),{padding:[28,28],maxZoom:15});
 }
