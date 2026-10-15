@@ -229,9 +229,11 @@ textarea.txt{min-height:70px;resize:vertical}
   </section>
 
   <section class="page food" id="p-mad" aria-label="Mad">
-    <h2 class="ph">Mad</h2>
-    <p class="lead">Priser er cirka pr. person før skat og drikkepenge. Læg ca. 30 % oveni på steder med bordservering.</p>
-    <div class="legend"><span class="chip">$ under $15</span><span class="chip">$$ $15 til 35</span><span class="chip">$$$ over $35</span></div>
+    <h2 class="ph" id="placetitle">Mad</h2>
+    <div class="seg" id="placemode" style="margin:0 0 14px"><button aria-pressed="true" data-m="mad">Mad</button><button aria-pressed="false" data-m="shop">Shopping</button></div>
+    <div id="madintro"><p class="lead">Priser er cirka pr. person før skat og drikkepenge. Læg ca. 30 % oveni på steder med bordservering.</p>
+    <div class="legend"><span class="chip">$ under $15</span><span class="chip">$$ $15 til 35</span><span class="chip">$$$ over $35</span></div></div>
+    <p class="lead" id="shopintro" hidden>Butikkerne fra jeres lister, samlet efter område. De fleste ligger tæt på hotellet. Tjek åbningstider på Instagram, mange små butikker åbner først kl. 11 eller 12.</p>
     <div class="filter" id="foodfilter"></div>
     <div id="foodlist"></div>
   </section>
@@ -337,7 +339,7 @@ textarea.txt{min-height:70px;resize:vertical}
 
 <nav class="tabs" aria-label="Sider"><div class="in" role="tablist">
   <button role="tab" data-p="p-plan" aria-selected="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="6" cy="6" r="2.5"/><circle cx="6" cy="18" r="2.5"/><path d="M6 8.5v7M11 6h9M11 18h9M11 12h9"/></svg>Plan</button>
-  <button role="tab" data-p="p-mad" aria-selected="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 11h16a8 8 0 0 1-16 0z"/><path d="M8 7c0-1 1-1 1-2M12 7c0-1 1-1 1-2M16 7c0-1 1-1 1-2"/></svg>Mad</button>
+  <button role="tab" data-p="p-mad" aria-selected="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 11h16a8 8 0 0 1-16 0z"/><path d="M8 7c0-1 1-1 1-2M12 7c0-1 1-1 1-2M16 7c0-1 1-1 1-2"/></svg>Mad og shop</button>
   <button role="tab" data-p="p-kort" aria-selected="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 4L3 6v14l6-2 6 2 6-2V4l-6 2z"/><path d="M9 4v14M15 6v14"/></svg>Kort</button>
   <button role="tab" data-p="p-info" aria-selected="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.5v.5"/></svg>Praktisk</button>
   <button role="tab" data-p="p-tools" aria-selected="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M8 7h8M8 12h2M14 12h2M8 16h2M14 16h2"/></svg>Værktøj</button>
@@ -350,18 +352,18 @@ textarea.txt{min-height:70px;resize:vertical}
 <script>
 const HOTEL = "95 Henry St, New York, NY 10002";
 const DAYS = [
- {d:"2026-11-11",n:11,wd:"Ons",c:"#FCCC0A",ci:"#1B2233",title:"Ankomst og Chinatown",
-  intro:"Kort første aften. Kom på plads, gå en tur i kvarteret og find noget godt og billigt at spise. Gå tidligt i seng, så jetlag ikke æder torsdagen.",
+  {d:"2026-11-11",n:11,wd:"Ons",c:"#FCCC0A",ci:"#1B2233",title:"Ankomst og Chinatown",
+  intro:"Kort første aften. Kom på plads, spis noget billigt lige ved hotellet og gå en tur i kvarteret. Gå tidligt i seng, så jetlag ikke æder torsdagen.",
   blocks:[
    {w:"Eftermiddag",items:[
     {t:"Fra JFK til hotellet",x:"Nemmest er gul taxi fra den officielle kø. Fast pris $70 plus afgifter og drikkepenge.",p:"ca. $95 til 110 for bilen",a:HOTEL},
     {t:"Tjek ind ca. 18.00",x:"95 Henry Street. Nærmeste metro er East Broadway (F toget).",a:HOTEL}
    ]},
    {w:"Aften",items:[
+    {t:"Aftensmad på Jin Mei Dumpling",x:"Sprøde stegte dumplings for få dollars på Henry St, kun et par minutter fra hotellet. Perfekt første aften, når I er trætte. Små dumplingsteder lukker ofte tidligt, så tag maden først.",p:"ca. $5 til 10",a:"25 Henry St, New York, NY 10002"},
+    {t:"Eller Nom Wah Tea Parlor",x:"Dim sum siden 1920. Bestil flere retter og del. Prøv de stegte egg rolls og shrimp siu mai.",p:"ca. $20 til 30",a:"13 Doyers St, New York, NY 10013",alt:true},
     {t:"Gåtur i Chinatown",x:"Mott Street, den krogede Doyers Street og Columbus Park. 20 minutter er nok til at få en fornemmelse af kvarteret.",p:"Gratis",a:"Doyers St, New York, NY 10013"},
     {t:"Hjørnet Canal St og Bowery",x:"Hjørnet The Lumineers synger om i Ho Hey. Det ligger 10 minutter fra hotellet, lige ved den store bue ved Manhattan Bridge. Sæt sangen på og tag et billede ved gadeskiltet.",p:"Gratis",a:"Canal St & Bowery, New York, NY 10002"},
-    {t:"Aftensmad på Nom Wah Tea Parlor",x:"Dim sum siden 1920. Bestil flere retter og del. Prøv de stegte egg rolls og shrimp siu mai.",p:"ca. $20 til 30",a:"13 Doyers St, New York, NY 10013"},
-    {t:"Eller Joe's Shanghai",x:"Kendt for soup dumplings. Bid et lille hul og drik suppen først.",p:"ca. $25",a:"46 Bowery, New York, NY 10013",alt:true},
     {t:"Is på Chinatown Ice Cream Factory",x:"Smage som sort sesam, lychee og durian, hvis nogen tør.",p:"ca. $7",a:"65 Bayard St, New York, NY 10013"}
    ]}
   ]},
@@ -374,10 +376,12 @@ const DAYS = [
     {t:"The Oculus",x:"Den hvide banegård, der ligner et skelet af en fugl. Gå ind og kig op. One World Trade Center ser I bedst herfra. I behøver ikke op, der kommer en bedre udsigt i morgen.",p:"Gratis",a:"185 Greenwich St, New York, NY 10007"}
    ]},
    {w:"Frokost",items:[
-    {t:"Leo's Bagels",x:"Rigtig New York bagel med cream cheese eller som sandwich.",p:"ca. $10 til 15",a:"3 Hanover Square, New York, NY 10004"}
+    {t:"Leo's Bagels",x:"Rigtig New York bagel med cream cheese eller som sandwich.",p:"ca. $10 til 15",a:"3 Hanover Square, New York, NY 10004"},
+    {t:"Eller Apollo Bagels",x:"En af byens mest hypede bagels. Ligger på John St, tæt på 9/11.",p:"ca. $10 til 15",a:"41 John St, New York, NY 10038",alt:true}
    ]},
    {w:"Eftermiddag",items:[
     {t:"Wall Street og børsen",x:"Stock Exchange med det store flag, Federal Hall med George Washington og Fearless Girl lige foran børsen.",p:"Gratis",a:"11 Wall St, New York, NY 10005"},
+    {t:"Pier 15",x:"Brygge med græs og trapper på taget og udsigt til Brooklyn Bridge. 10 minutters gang fra Wall Street, og så kan I følge vandet ned mod Battery Park.",p:"Gratis",a:"Pier 15, South St, New York, NY 10038"},
     {t:"Charging Bull og Battery Park",x:"Tyren er et hurtigt foto. Gå videre gennem Battery Park ned til vandet.",p:"Gratis",a:"Charging Bull, Broadway, New York, NY 10004"},
     {t:"Staten Island Ferry ca. 15.30",x:"Fra Whitehall Terminal. Stå i højre side på vej ud for at se Frihedsgudinden tæt på. På Staten Island går I bare af og tager næste færge tilbage. Solen går ned ca. 16.40, så I får skyline i skumring på hjemvejen.",p:"Gratis",a:"4 South St, New York, NY 10004"},
     {t:"Alternativ: helt ud til Liberty Island",x:"Statue City Cruises sejler fra Battery Park. Tager en halv dag, så byt i så fald med 9/11 museet.",p:"ca. $25",book:true,alt:true,a:"Castle Clinton, Battery Park, New York, NY 10004"}
@@ -400,7 +404,9 @@ const DAYS = [
    ]},
    {w:"Eftermiddag",items:[
     {t:"Rockefeller Center og St. Patrick's",x:"Guldstatuen og skøjtebanen ved Rockefeller, katedralen lige overfor og butiksvinduerne på Fifth Avenue.",p:"Gratis",a:"St. Patrick's Cathedral, 5th Ave, New York, NY 10022"},
-    {t:"Summit One Vanderbilt ved solnedgang",x:"Fødselsdagens højdepunkt. Spejlrum, glasbokse ud over kanten og hele byen i solnedgang. Book tid ca. 15.45, så er I der når lyset forsvinder.",p:"ca. $45 til 50",book:true,a:"45 E 42nd St, New York, NY 10017"}
+    {t:"Summit One Vanderbilt ved solnedgang",x:"Fødselsdagens højdepunkt. Spejlrum, glasbokse ud over kanten og hele byen i solnedgang. Book tid ca. 15.45, så er I der når lyset forsvinder.",p:"ca. $45 til 50",book:true,a:"45 E 42nd St, New York, NY 10017"},
+    {t:"Alternativ: Top of the Rock",x:"Udsigt fra toppen af Rockefeller Center med Empire State midt i billedet. Kun hvis I hellere vil det end Summit.",p:"ca. $40 til 50",book:true,alt:true,a:"30 Rockefeller Plaza, New York, NY 10112"},
+    {t:"Alternativ: Empire State Building",x:"Den klassiske. Udsigten fra 86. etage er udendørs.",p:"ca. $45 og op",book:true,alt:true,a:"20 W 34th St, New York, NY 10001"}
    ]},
    {w:"Aften",items:[
     {t:"Middag på Carmine's",x:"Italiensk familiestil. Kæmpe fade til deling, perfekt til fire. Book bord og nævn at der er to med fødselsdag.",p:"ca. $40 til 50",book:true,a:"200 W 44th St, New York, NY 10036"},
@@ -413,6 +419,7 @@ const DAYS = [
   intro:"Gå over Brooklyn Bridge om morgenen før folkemængden, og brug dagen i DUMBO og langs vandet. Aftenen er åben til Broadway, hvis I har fået billetter.",
   blocks:[
    {w:"Formiddag",items:[
+    {t:"Valgfrit: solopgang på broen",x:"Solen står op ca. 6.45. Gå fra hotellet ca. 6.15, så har I broen næsten for jer selv. Dem der hellere vil sove, mødes med jer i DUMBO bagefter.",p:"Gratis",alt:true,a:"Brooklyn Bridge Pedestrian Walkway, New York, NY 10038"},
     {t:"Gå over Brooklyn Bridge",x:"Start ved City Hall på Manhattan siden, 20 minutters gang fra hotellet. Selve broen tager 30 til 45 minutter med fotostop. Jo tidligere, jo bedre.",p:"Gratis",a:"Brooklyn Bridge Pedestrian Walkway, New York, NY 10038"},
     {t:"DUMBO fotospot",x:"Hjørnet af Washington St og Water St, hvor Manhattan Bridge står i ramme mellem de røde murstenshuse.",p:"Gratis",a:"Washington St & Water St, Brooklyn, NY 11201"},
     {t:"Jane's Carousel og Pebble Beach",x:"Gammel karrusel i glashus ved vandet og en lille strand med udsigt til broerne.",p:"Karrusel ca. $3",a:"Jane's Carousel, Old Dock St, Brooklyn, NY 11201"}
@@ -432,8 +439,8 @@ const DAYS = [
     {t:"Uden Broadway: Xi'an Famous Foods",x:"Stærke nudler med spidskommen og lam tæt på hotellet.",p:"ca. $15",a:"45 Bayard St, New York, NY 10013",alt:true}
    ]}
   ]},
- {d:"2026-11-15",n:15,wd:"Søn",c:"#FF6319",ci:"#fff",title:"Central Park og MoMA",
-  intro:"Efterårsfarverne i Central Park topper ofte netop i midten af november. Formiddag i parken, eftermiddag på museum og en rolig aften.",
+  {d:"2026-11-15",n:15,wd:"Søn",c:"#FF6319",ci:"#fff",title:"Central Park og The Met",
+  intro:"Efterårsfarverne i Central Park topper ofte netop i midten af november. Formiddag i parken, eftermiddag på The Met, svævebanen ved solnedgang og en rolig aften i kvarteret.",
   blocks:[
    {w:"Formiddag",items:[
     {t:"Ind i parken ved The Pond",x:"F toget til 57 St. Gapstow Bridge ved søen er det klassiske foto med skyline bag træerne.",p:"Gratis",a:"Gapstow Bridge, Central Park, New York, NY 10019"},
@@ -442,46 +449,57 @@ const DAYS = [
     {t:"Evt. lej cykler",x:"Parken er stor. En cykeltur rundt tager ca. en time. Citi Bike eller udlejning ved parken.",p:"ca. $20 til 30",alt:true}
    ]},
    {w:"Frokost",items:[
-    {t:"Levain Bakery",x:"Byens mest kendte cookie. Den er tyk som en kage, så del.",p:"ca. $5",a:"167 W 74th St, New York, NY 10023"},
-    {t:"The Halal Guys",x:"Den originale madvogn. Kylling og ris med hvid sauce. Pas på den røde, den er stærk.",p:"ca. $12 til 14",a:"W 53rd St & 6th Ave, New York, NY 10019"}
+    {t:"Levain Bakery",x:"Byens mest kendte cookie. Den er tyk som en kage, så del. Bagefter går I på tværs af parken til The Met på ca. 15 minutter.",p:"ca. $5",a:"167 W 74th St, New York, NY 10023"}
    ]},
    {w:"Eftermiddag",items:[
-    {t:"MoMA",x:"Van Goghs Stjernenat, Monets åkander, Warhol og Picasso. Start på 5. sal. Regn med to timer.",p:"ca. $30",book:true,a:"11 W 53rd St, New York, NY 10019"},
-    {t:"Eller Natural History Museum",x:"Dinosaurer og blåhvalen fra Nat på Museet. Ligger lige ved Strawberry Fields.",p:"ca. $30",alt:true,a:"200 Central Park West, New York, NY 10024"}
+    {t:"The Met",x:"Et af verdens største kunstmuseer, lige i kanten af parken. Egyptisk tempel, rustninger og malerier fra Rembrandt til Van Gogh. Vælg to eller tre afdelinger, ellers bliver det for meget. Åbent søndag 10 til 17.",p:"$30",book:true,a:"1000 5th Ave, New York, NY 10028"},
+    {t:"Eller MoMA",x:"Van Goghs Stjernenat, Monets åkander, Warhol og Picasso. Start på 5. sal.",p:"ca. $30",alt:true,a:"11 W 53rd St, New York, NY 10019"},
+    {t:"French Sole",x:"Butik med ballerinaer, 10 minutters gang fra The Met. Tjek åbningstiden om søndagen.",alt:true,a:"985 Lexington Ave, New York, NY 10021"},
+    {t:"Roosevelt Island Tramway ved solnedgang",x:"Svævebanen over East River fra 2nd Ave og 60th St. Solen går ned ca. 16.35, så tag den omkring 16.15 for at få skyline i det sidste lys. Betal med OMNY ligesom i metroen. Fra øen kører F toget direkte hjem til East Broadway.",p:"Pris som en metrotur",a:"E 60th St & 2nd Ave, New York, NY 10022"}
    ]},
    {w:"Aften",items:[
-    {t:"Rolig aften",x:"Slack i planen. Hvil, gå en tur eller tag tilbage til noget I gerne ville se mere af."},
-    {t:"Vanessa's Dumpling House",x:"Stegte dumplings og sesam pancake sandwich. Billigt og mættende, 7 minutter fra hotellet.",p:"ca. $10",a:"118 Eldridge St, New York, NY 10002"}
+    {t:"Old Friend Photobooth",x:"Gammeldags fotoautomat med sort hvide billeder, 10 minutter fra hotellet. Der kan være kø, men det er et sjovt minde for jer fire.",p:"ca. $8 pr. strip",a:"145 Allen St, New York, NY 10002"},
+    {t:"Dumplings på Shu Jiao Fu Zhou",x:"Fuzhou dumplings og jordnøddenudler for få dollars. 5 minutter fra hotellet.",p:"ca. $10",a:"295 Grand St, New York, NY 10002"},
+    {t:"Eller King Dumplings",x:"Lille sted på Hester St med billige dumplings.",p:"ca. $10",alt:true,a:"74 Hester St, New York, NY 10002"},
+    {t:"Eller Vanessa's Dumpling House",x:"Stegte dumplings og sesam pancake sandwich.",p:"ca. $10",alt:true,a:"118 Eldridge St, New York, NY 10002"}
    ]}
   ]},
- {d:"2026-11-16",n:16,wd:"Man",c:"#B933AD",ci:"#fff",title:"Shopping og West Side",
-  intro:"Shoppingdag i SoHo, som ligger lige ved hotellet. Om eftermiddagen Greenwich Village og High Line. Tag det, I orker.",
+  {d:"2026-11-16",n:16,wd:"Man",c:"#B933AD",ci:"#fff",title:"Shopping og West Side",
+  intro:"Formiddagen går gennem Little Italy, Elizabeth Street og SoHo, som alle ligger tæt på hotellet. Om eftermiddagen West Village og High Line, og aftenen slutter i Koreatown. Tag det, I orker.",
   blocks:[
    {w:"Formiddag",items:[
-    {t:"Shopping i SoHo",x:"Broadway mellem Canal St og Houston St har alle de store kæder. Sidegaderne Prince St, Spring St og Mercer St har de mindre og pænere butikker. 15 minutter til fods fra hotellet.",a:"Broadway & Prince St, New York, NY 10012"},
+    {t:"Little Italy",x:"Mulberry Street med røde duge, italienske flag og cannoli. Gå fra Canal St op mod Prince St. Ca. 15 minutter fra hotellet.",p:"Gratis",a:"Mulberry St & Grand St, New York, NY 10013"},
+    {t:"Elizabeth Street i Nolita",x:"Små butikker og caféer en gade øst for Mulberry. Alohas har butik her. Se hele listen under Mad og shop.",a:"260 Elizabeth St, New York, NY 10012"},
+    {t:"Shopping i SoHo",x:"Broadway mellem Canal St og Houston St har de store kæder. Sidegaderne Prince St, Spring St og Mercer St har de mindre butikker. Rebelonging og New York or Nowhere ligger her også.",a:"Broadway & Prince St, New York, NY 10012"},
     {t:"Evt. Macy's Herald Square",x:"Kæmpe stormagasin. Spørg ved Visitor Center om turistrabat, tag pas med.",alt:true,a:"151 W 34th St, New York, NY 10001"}
    ]},
    {w:"Frokost",items:[
-    {t:"Prince Street Pizza",x:"Firkantet slice med pepperoni, der krøller sig til små skåle. Der er kø, men den går hurtigt.",p:"ca. $6 til 8",a:"27 Prince St, New York, NY 10012"}
+    {t:"Prince Street Pizza",x:"Firkantet slice med pepperoni, der krøller sig til små skåle. Der er kø, men den går hurtigt.",p:"ca. $6 til 8",a:"27 Prince St, New York, NY 10012"},
+    {t:"Eller Sadelle's",x:"Bagels, røget laks og French toast i pæne omgivelser. Dyrere og ofte kø, så book bord.",p:"$$$",book:true,alt:true,a:"463 West Broadway, New York, NY 10012"}
    ]},
    {w:"Eftermiddag",items:[
     {t:"Washington Square Park og Greenwich Village",x:"Buen, gademusikanter og smukke gader i Greenwich Village.",p:"Gratis",a:"Washington Square Park, New York, NY 10012"},
     {t:"Friends hjørnet",x:"Hjørnet af Grove St og Bedford St, hvor bygningen fra Friends står. Stil jer på det modsatte hjørne for at få samme vinkel som i serien. 10 minutters gang fra Washington Square Park.",p:"Gratis",a:"90 Bedford St, New York, NY 10014"},
-    {t:"Banana pudding på Magnolia Bakery",x:"Klassikeren. Et bæger deles fint.",p:"ca. $6",a:"401 Bleecker St, New York, NY 10014"},
+    {t:"Magnolia Bakery og Bleecker Street",x:"Banana pudding på Magnolia. Lige overfor ligger Alohas' anden butik, og gaden er fuld af små butikker og caféer.",p:"ca. $6",a:"401 Bleecker St, New York, NY 10014"},
+    {t:"Slice på L'industrie",x:"En af byens mest roste pizzaslices, fx med burrata. 5 minutter fra Friends hjørnet.",p:"ca. $6 til 9",alt:true,a:"104 Christopher St, New York, NY 10014"},
     {t:"Little Island",x:"Park på pæle ude i Hudson floden. Gratis og sjovt at gå rundt på.",p:"Gratis",a:"Little Island, Pier 55, New York, NY 10014"},
     {t:"High Line til Hudson Yards",x:"Gammel togbane lavet om til park. Gå op ved Gansevoort St og nordpå. Gør et stop i Chelsea Market undervejs. Ender ved Vessel i Hudson Yards.",p:"Gratis",a:"High Line, Gansevoort St, New York, NY 10014"},
-    {t:"Chelsea Market",x:"Food hall i en gammel kiksfabrik. Godt til en snack eller tidlig aftensmad.",p:"$ til $$",a:"75 9th Ave, New York, NY 10011"}
+    {t:"Chelsea Market",x:"Food hall i en gammel kiksfabrik. Godt til en snack eller tidlig aftensmad.",p:"$ til $$",a:"75 9th Ave, New York, NY 10011"},
+    {t:"Vessel og Hudson Yards",x:"Den kobberfarvede trappeskulptur for enden af High Line. Gratis at se nedefra.",p:"Gratis",a:"20 Hudson Yards, New York, NY 10001"}
    ]},
    {w:"Aften",items:[
+    {t:"Forbi Madison Square Garden",x:"Gå ad 33rd St mod øst. Arenaen ligger oven på Penn Station, lige på vejen til Koreatown.",p:"Gratis",a:"4 Pennsylvania Plaza, New York, NY 10001"},
     {t:"Sidste aften i Koreatown",x:"W 32nd St er fuld af koreansk BBQ, hvor I griller selv ved bordet. Hyggeligt til en afslutning.",p:"ca. $35 til 50",a:"W 32nd St & Broadway, New York, NY 10001"},
     {t:"Eller billigt i Chinatown",x:"Wah Fung eller Xi'an, hvis pengene skal holdes til shopping.",p:"ca. $7 til 15",alt:true}
    ]}
   ]},
- {d:"2026-11-17",n:17,wd:"Tir",c:"#808183",ci:"#fff",title:"Hjemrejse",
+  {d:"2026-11-17",n:17,wd:"Tir",c:"#808183",ci:"#fff",title:"Hjemrejse",
   intro:"Pak, tjek ud og brug formiddagen i Lower East Side lige om hjørnet. Tiderne antager at flyet letter ca. 17.",
   blocks:[
    {w:"Formiddag",items:[
     {t:"Tjek ud og opbevar bagagen",x:"Spørg i receptionen om de kan passe på kufferterne til I skal afsted.",a:HOTEL},
+    {t:"Museum at Eldridge Street",x:"Smuk synagoge fra 1887 med et stort rosetvindue, 5 minutter fra hotellet. Åbner kl. 10 og tager under en time.",p:"$15",a:"12 Eldridge St, New York, NY 10002"},
+    {t:"Shopping på Orchard Street",x:"Fire butikker fra listen ligger på samme stykke gade: Pêche, Miista, Sora og Kallmeyer. Mange af dem åbner først kl. 11 eller 12, så tjek tiderne på Instagram.",a:"69 Orchard St, New York, NY 10002"},
     {t:"Economy Candy",x:"Slikbutik fra 1937 med amerikansk slik fra gulv til loft. God til souvenirs.",p:"$",a:"108 Rivington St, New York, NY 10002"},
     {t:"Russ & Daughters",x:"Bagel med røget laks og cream cheese. Tag en med til flyet.",p:"ca. $18",a:"179 E Houston St, New York, NY 10002"}
    ]},
@@ -495,22 +513,33 @@ const DAYS = [
 ];
 
 const FOOD = [
+ {g:"Tæt på hotellet",n:"Jin Mei Dumpling",x:"Sprøde stegte dumplings. Lige ved hotellet på Henry St.",p:"$",a:"25 Henry St, New York, NY 10002"},
+ {g:"Tæt på hotellet",n:"Shu Jiao Fu Zhou",x:"Fuzhou dumplings og jordnøddenudler.",p:"$",a:"295 Grand St, New York, NY 10002"},
+ {g:"Tæt på hotellet",n:"King Dumplings",x:"Billige dumplings på Hester St.",p:"$",a:"74 Hester St, New York, NY 10002"},
  {g:"Tæt på hotellet",n:"Wah Fung No. 1",x:"Glaseret svinekød over ris. Kun kontant, lukker tidligt.",p:"$",a:"79 Chrystie St, New York, NY 10002"},
  {g:"Tæt på hotellet",n:"Vanessa's Dumpling House",x:"Stegte dumplings og sesam pancake sandwich.",p:"$",a:"118 Eldridge St, New York, NY 10002"},
  {g:"Tæt på hotellet",n:"Xi'an Famous Foods",x:"Håndtrukne nudler med lam og spidskommen.",p:"$",a:"45 Bayard St, New York, NY 10013"},
  {g:"Tæt på hotellet",n:"Nom Wah Tea Parlor",x:"Dim sum i Chinatowns ældste tehus.",p:"$$",a:"13 Doyers St, New York, NY 10013"},
  {g:"Tæt på hotellet",n:"Joe's Shanghai",x:"Soup dumplings.",p:"$$",a:"46 Bowery, New York, NY 10013"},
  {g:"Tæt på hotellet",n:"Essex Market",x:"Food hall med alt fra tacos til dumplings.",p:"$ til $$",a:"88 Essex St, New York, NY 10002"},
+ {g:"Pizza",n:"Joe's Pizza",x:"Den klassiske New York slice.",p:"$",a:"7 Carmine St, New York, NY 10014"},
+ {g:"Pizza",n:"L'industrie",x:"En af byens mest roste slices, fx med burrata.",p:"$",a:"104 Christopher St, New York, NY 10014"},
+ {g:"Pizza",n:"Prince Street Pizza",x:"Firkantet pepperoni slice.",p:"$",a:"27 Prince St, New York, NY 10012"},
+ {g:"Pizza",n:"Mama's Too",x:"Firkantede slices med sprød bund. Ligger på Upper West Side.",p:"$",a:"2750 Broadway, New York, NY 10025"},
+ {g:"Pizza",n:"2 Bros Pizza",x:"Byens billigste slice.",p:"$",a:"32 St Marks Pl, New York, NY 10003"},
+ {g:"Pizza",n:"Juliana's",x:"Kulovnspizza under Brooklyn Bridge.",p:"$$",a:"19 Old Fulton St, Brooklyn, NY 11201"},
+ {g:"Bagels",n:"Apollo Bagels",x:"Meget hypede bagels. Også en afdeling på 242 E 10th St.",p:"$",a:"41 John St, New York, NY 10038"},
+ {g:"Bagels",n:"Leon's Bagels",x:"Bagels på Thompson St mellem SoHo og Greenwich Village.",p:"$",a:"169 Thompson St, New York, NY 10012"},
+ {g:"Bagels",n:"Tompkins Square Bagels",x:"Kæmpe udvalg af cream cheese i East Village.",p:"$",a:"165 Avenue A, New York, NY 10009"},
+ {g:"Bagels",n:"Leo's Bagels",x:"Klassisk bagel tæt på Wall Street.",p:"$",a:"3 Hanover Square, New York, NY 10004"},
+ {g:"Bagels",n:"Russ & Daughters",x:"Bagel med røget laks.",p:"$$",a:"179 E Houston St, New York, NY 10002"},
  {g:"Klassikere",n:"Katz's Delicatessen",x:"Pastrami sandwich. Del én på to.",p:"$$",a:"205 E Houston St, New York, NY 10002"},
- {g:"Klassikere",n:"Russ & Daughters",x:"Bagel med røget laks.",p:"$$",a:"179 E Houston St, New York, NY 10002"},
- {g:"Klassikere",n:"Joe's Pizza",x:"Den klassiske New York slice.",p:"$",a:"7 Carmine St, New York, NY 10014"},
- {g:"Klassikere",n:"Prince Street Pizza",x:"Firkantet pepperoni slice.",p:"$",a:"27 Prince St, New York, NY 10012"},
- {g:"Klassikere",n:"Juliana's",x:"Kulovnspizza under Brooklyn Bridge.",p:"$$",a:"19 Old Fulton St, Brooklyn, NY 11201"},
  {g:"Klassikere",n:"The Halal Guys",x:"Kylling og ris fra madvognen.",p:"$",a:"W 53rd St & 6th Ave, New York, NY 10019"},
  {g:"Klassikere",n:"Los Tacos No. 1",x:"Adobada tacos. Også i Chelsea Market.",p:"$",a:"229 W 43rd St, New York, NY 10036"},
- {g:"Billigt og hurtigt",n:"2 Bros Pizza",x:"Byens billigste slice, ca. $2.",p:"$",a:"32 St Marks Pl, New York, NY 10003"},
+ {g:"Billigt og hurtigt",n:"7th Street Burger",x:"Små smash burgers. Originalen ligger i East Village.",p:"$",a:"91 E 7th St, New York, NY 10009"},
+ {g:"Billigt og hurtigt",n:"Milano Market",x:"Kendt for chicken caesar wrap. Ligger højt oppe på Upper West Side ved Columbia, så kun hvis I kommer forbi.",p:"$",a:"2892 Broadway, New York, NY 10025"},
  {g:"Billigt og hurtigt",n:"Mamoun's Falafel",x:"Falafel pita siden 1971.",p:"$",a:"119 MacDougal St, New York, NY 10012"},
- {g:"Billigt og hurtigt",n:"Shake Shack",x:"Burger og milkshake. Den første ligger i Madison Square Park.",p:"$$",a:"Madison Square Park, New York, NY 10010"},
+ {g:"Billigt og hurtigt",n:"Shake Shack",x:"Burger og milkshake. Den første ligger i Madison Square Park ved Flatiron Building.",p:"$$",a:"Madison Square Park, New York, NY 10010"},
  {g:"Billigt og hurtigt",n:"En bodega",x:"Bestil en bacon, egg and cheese på et hjørne. Ca. $6 og meget New York.",p:"$"},
  {g:"Food halls",n:"Chelsea Market",x:"Mange boder i en gammel kiksfabrik.",p:"$ til $$",a:"75 9th Ave, New York, NY 10011"},
  {g:"Food halls",n:"Time Out Market",x:"Boder og tagterrasse i DUMBO.",p:"$$",a:"55 Water St, Brooklyn, NY 11201"},
@@ -518,9 +547,28 @@ const FOOD = [
  {g:"Søde sager",n:"Magnolia Bakery",x:"Banana pudding.",p:"$",a:"401 Bleecker St, New York, NY 10014"},
  {g:"Søde sager",n:"Junior's",x:"Cheesecake nær Times Square.",p:"$",a:"1515 Broadway, New York, NY 10036"},
  {g:"Søde sager",n:"Chinatown Ice Cream Factory",x:"Is med asiatiske smage.",p:"$",a:"65 Bayard St, New York, NY 10013"},
+ {g:"Lidt dyrere",n:"Soothr",x:"Thai nudler og curry i East Village.",p:"$$",a:"204 E 13th St, New York, NY 10003"},
+ {g:"Lidt dyrere",n:"Rubirosa",x:"Tynd sprød pizza og pasta i Nolita. Kræver reservation.",p:"$$",a:"235 Mulberry St, New York, NY 10012"},
+ {g:"Lidt dyrere",n:"Sadelle's",x:"Bagels, laks og French toast i SoHo. Book bord.",p:"$$$",a:"463 West Broadway, New York, NY 10012"},
  {g:"Lidt dyrere",n:"Carmine's",x:"Italienske fade til deling.",p:"$$$",a:"200 W 44th St, New York, NY 10036"},
  {g:"Lidt dyrere",n:"Koreansk BBQ i Koreatown",x:"Grill selv ved bordet på W 32nd St.",p:"$$ til $$$",a:"W 32nd St & Broadway, New York, NY 10001"},
  {g:"Lidt dyrere",n:"The Django",x:"Jazz og middag i en kælder i Tribeca.",p:"$$$",a:"2 6th Ave, New York, NY 10013"}
+];
+
+const SHOPS = [
+ {g:"Lower East Side",n:"Pêche",x:"Koreansk minimalistisk tøj.",a:"58 Orchard St, New York, NY 10002"},
+ {g:"Lower East Side",n:"Miista",x:"Sko og støvler i flotte farver.",a:"69 Orchard St, New York, NY 10002"},
+ {g:"Lower East Side",n:"Sora",x:"Slow fashion og vintage.",a:"73 Orchard St, New York, NY 10002"},
+ {g:"Lower East Side",n:"Kallmeyer",x:"Lokalt designer tøj.",a:"83 Orchard St, New York, NY 10002"},
+ {g:"Lower East Side",n:"Economy Candy",x:"Amerikansk slik fra gulv til loft. Gode souvenirs.",a:"108 Rivington St, New York, NY 10002"},
+ {g:"Nolita og SoHo",n:"Alohas",x:"Sko og tøj. Butikken på Elizabeth Street.",a:"260 Elizabeth St, New York, NY 10012"},
+ {g:"Nolita og SoHo",n:"Rebelonging",x:"Vintage designertasker.",a:"422 West Broadway, New York, NY 10012"},
+ {g:"Nolita og SoHo",n:"New York or Nowhere",x:"New York souvenirs og merch, fx hættetrøjer og kasketter.",a:"250 Lafayette St, New York, NY 10012"},
+ {g:"Nolita og SoHo",n:"SoHo på Broadway",x:"Alle de store kæder mellem Canal St og Houston St.",a:"Broadway & Prince St, New York, NY 10012"},
+ {g:"West Village",n:"Alohas Bleecker Street",x:"Alohas' anden butik, lige over for Magnolia Bakery.",a:"400 Bleecker St, New York, NY 10014"},
+ {g:"Længere væk",n:"French Sole",x:"Ballerinaer. Upper East Side, 10 minutter fra The Met.",a:"985 Lexington Ave, New York, NY 10021"},
+ {g:"Længere væk",n:"Awoke Vintage",x:"Stor vintagebutik. Ligger i Williamsburg i Brooklyn, ikke på Elizabeth Street.",a:"132 N 5th St, Brooklyn, NY 11211"},
+ {g:"Længere væk",n:"Macy's Herald Square",x:"Kæmpe stormagasin. Spørg om turistrabat.",a:"151 W 34th St, New York, NY 10001"}
 ];
 
 const TODOS = [
@@ -604,6 +652,36 @@ const COORDS = {
  "York St Station, Brooklyn, NY 11201":[40.7014,-73.9866]
 };
 Object.assign(COORDS,{
+ "25 Henry St, New York, NY 10002":[40.7121,-73.9969],
+ "74 Hester St, New York, NY 10002":[40.7172,-73.9917],
+ "295 Grand St, New York, NY 10002":[40.7178,-73.9924],
+ "104 Christopher St, New York, NY 10014":[40.7334,-74.0050],
+ "2750 Broadway, New York, NY 10025":[40.8003,-73.9678],
+ "41 John St, New York, NY 10038":[40.7095,-74.0082],
+ "169 Thompson St, New York, NY 10012":[40.7272,-74.0003],
+ "165 Avenue A, New York, NY 10009":[40.7287,-73.9817],
+ "204 E 13th St, New York, NY 10003":[40.7323,-73.9871],
+ "91 E 7th St, New York, NY 10009":[40.7262,-73.9845],
+ "463 West Broadway, New York, NY 10012":[40.7257,-74.0012],
+ "2892 Broadway, New York, NY 10025":[40.8058,-73.9653],
+ "235 Mulberry St, New York, NY 10012":[40.7224,-73.9960],
+ "58 Orchard St, New York, NY 10002":[40.7176,-73.9914],
+ "69 Orchard St, New York, NY 10002":[40.7180,-73.9910],
+ "73 Orchard St, New York, NY 10002":[40.7182,-73.9908],
+ "83 Orchard St, New York, NY 10002":[40.7186,-73.9906],
+ "260 Elizabeth St, New York, NY 10012":[40.7243,-73.9933],
+ "422 West Broadway, New York, NY 10012":[40.7247,-74.0015],
+ "250 Lafayette St, New York, NY 10012":[40.7231,-73.9975],
+ "400 Bleecker St, New York, NY 10014":[40.7360,-74.0053],
+ "985 Lexington Ave, New York, NY 10021":[40.7700,-73.9620],
+ "132 N 5th St, Brooklyn, NY 11211":[40.7188,-73.9590],
+ "145 Allen St, New York, NY 10002":[40.7206,-73.9893],
+ "12 Eldridge St, New York, NY 10002":[40.7148,-73.9938],
+ "Pier 15, South St, New York, NY 10038":[40.7055,-74.0027],
+ "E 60th St & 2nd Ave, New York, NY 10022":[40.7613,-73.9640],
+ "20 W 34th St, New York, NY 10001":[40.7484,-73.9857],
+ "4 Pennsylvania Plaza, New York, NY 10001":[40.7505,-73.9934],
+ "Mulberry St & Grand St, New York, NY 10013":[40.7193,-73.9974],
  "230 Vesey St, New York, NY 10281":[40.7133,-74.0154],
  "103 Orchard St, New York, NY 10002":[40.7187,-73.9900],
  "30 Rockefeller Plaza, New York, NY 10112":[40.7587,-73.9787],
@@ -623,9 +701,9 @@ const RAIN = {
   {t:"ARTECHOUSE",x:"Digital kunst projiceret på vægge og gulv. Fra PDF'en.",p:"ca. $30 til 40",a:"439 W 15th St, New York, NY 10011",b:"Eftermiddag"},
   {t:"Mercer Labs",x:"Stort museum for kunst og teknologi med spejlrum og lys.",p:"ca. $50",a:"21 Dey St, New York, NY 10007",b:"Eftermiddag"},
   {t:"Chelsea Market",x:"Food hall i en gammel kiksfabrik. Tørt og varmt.",p:"$ til $$",a:"75 9th Ave, New York, NY 10011",b:"Frokost"}]},
- "2026-11-15":{note:"Drop parken og tag et museum mere. De to store ligger på hver sin side af parken.",items:[
-  {t:"Natural History Museum",x:"Dinosaurer og blåhvalen.",p:"ca. $30",a:"200 Central Park West, New York, NY 10024",b:"Formiddag"},
-  {t:"The Met",x:"Et af verdens største kunstmuseer. Kan sagtens tage en hel formiddag.",p:"ca. $30",a:"1000 5th Ave, New York, NY 10028",b:"Formiddag"}]},
+ "2026-11-15":{note:"The Met er allerede indendørs. Drop gåturen i parken og tag et museum mere om formiddagen.",items:[
+  {t:"Natural History Museum",x:"Dinosaurer og blåhvalen. Ligger på vestsiden af parken.",p:"ca. $30",a:"200 Central Park West, New York, NY 10024",b:"Formiddag"},
+  {t:"MoMA",x:"Van Gogh, Monet og Warhol.",p:"ca. $30",a:"11 W 53rd St, New York, NY 10019",b:"Formiddag"}]},
  "2026-11-16":{note:"Shoppingen kan sagtens flyttes indendørs.",items:[
   {t:"Macy's Herald Square",x:"Kæmpe stormagasin. Spørg om turistrabat.",a:"151 W 34th St, New York, NY 10001",b:"Formiddag"},
   {t:"The Shops at Hudson Yards",x:"Overdækket indkøbscenter på flere etager ved Vessel.",a:"20 Hudson Yards, New York, NY 10001",b:"Eftermiddag"},
@@ -946,19 +1024,27 @@ function planWish(id){
 }
 
 /* ================= food ================= */
-let foodGroup="Alle", foodNear=false;
+let foodGroup="Alle", foodNear=false, placeMode="mad";
+document.querySelectorAll("#placemode button").forEach(b=>b.onclick=()=>{
+  placeMode=b.dataset.m; foodGroup="Alle";
+  document.querySelectorAll("#placemode button").forEach(x=>x.setAttribute("aria-pressed",x===b));
+  renderFood();
+});
 function renderFood(){
-  const groups=["Alle",...new Set(FOOD.map(f=>f.g))];
+  const shop=placeMode==="shop", SRC=shop?SHOPS:FOOD, pre=shop?"shop_":"food_";
+  $("#placetitle").textContent=shop?"Shopping":"Mad";
+  $("#madintro").hidden=shop; $("#shopintro").hidden=!shop;
+  const groups=["Alle",...new Set(SRC.map(f=>f.g))];
   $("#foodfilter").innerHTML=`<button aria-pressed="${foodNear}" data-near="1">📍 Nærmest først</button>`+groups.map(g=>`<button aria-pressed="${g===foodGroup}" data-g="${g}">${g}</button>`).join("");
   $("#foodfilter").querySelectorAll("button").forEach(b=>b.onclick=()=>{ if(b.dataset.near){foodNear=!foodNear;if(foodNear&&!myPos)locate()} else foodGroup=b.dataset.g; renderFood() });
-  let list=FOOD.filter(f=>foodGroup==="Alle"||f.g===foodGroup);
+  let list=SRC.filter(f=>foodGroup==="Alle"||f.g===foodGroup);
   const sorted=foodNear&&myPos;
   if(sorted) list=list.filter(f=>COORDS[f.a]).map(f=>({...f,m:distM(myPos,COORDS[f.a])})).sort((a,b)=>a.m-b.m);
   let html="",last="";
   list.forEach(f=>{
     if(!sorted&&foodGroup==="Alle"&&f.g!==last){html+=`<h4>${f.g}</h4>`;last=f.g}
-    const key="food_"+f.n;
-    html+=`<div class="item${done[key]?" done":""}"><div class="itop"><h3>${esc(f.n)} <span class="price">${f.p}</span></h3><button class="check" data-check="${esc(key)}" aria-label="Marker som prøvet" aria-pressed="${!!done[key]}">${tick}</button></div>
+    const key=pre+f.n;
+    html+=`<div class="item${done[key]?" done":""}"><div class="itop"><h3>${esc(f.n)}${f.p?` <span class="price">${f.p}</span>`:""}</h3><button class="check" data-check="${esc(key)}" aria-label="${shop?"Marker som besøgt":"Marker som prøvet"}" aria-pressed="${!!done[key]}">${tick}</button></div>
       <p>${esc(f.x)}</p>${f.a?`<div class="meta">${f.m!=null?`<span class="chip dist">${fmtDist(f.m)}</span>`:""}<span class="chip">${esc(f.a.split(",")[0])}</span>${goBtn(f.a)}</div>`:""}</div>`;
   });
   $("#foodlist").innerHTML=html;
@@ -1070,12 +1156,13 @@ function allPlaces(){
     BLOCKS.forEach(b=>items[b].forEach(it=>{ if(it.hidden||!it.a||it.a===HOTEL) return; const ll=it.ll||COORDS[it.a]; if(!ll) return;
       const k=it.t+it.a; if(seen.has(k)) return; seen.add(k); out.push({n:it.t,a:it.a,ll,c:d.c,g:d.d,lab:d.wd+" "+d.n+". nov"}) })) });
   FOOD.forEach(f=>{ if(f.a&&COORDS[f.a]) out.push({n:f.n,a:f.a,ll:COORDS[f.a],c:"#1B2233",g:"food",lab:"Mad "+f.p}) });
+  SHOPS.forEach(f=>{ if(f.a&&COORDS[f.a]) out.push({n:f.n,a:f.a,ll:COORDS[f.a],c:"#0E9AA7",g:"shop",lab:"Shop"}) });
   dataList("wish:").forEach(w=>{ if(w.ll) out.push({n:w.n,a:w.a,ll:w.ll,c:"#E91E63",g:"wish",lab:"Ønske"+(w.by?" fra "+w.by:"")}) });
   return out;
 }
 const popup=p=>`<b>${esc(p.n)}</b><br>${esc(p.lab||"")}${myPos?"<br>"+fmtDist(distM(myPos,p.ll)):""}<br><a href="${dirURL(p.a)}" target="_blank" rel="noopener">Vis vej</a>`;
 function renderMapFilter(){
-  const opts=[["all","Alle"],...DAYS.map(d=>[d.d,d.wd+" "+d.n]),["food","Mad"],["wish","Ønsker"]];
+  const opts=[["all","Alle"],...DAYS.map(d=>[d.d,d.wd+" "+d.n]),["food","Mad"],["shop","Shop"],["wish","Ønsker"]];
   $("#mapfilter").innerHTML=opts.map(([k,l])=>`<button aria-pressed="${k===mapFilter}" data-k="${k}">${l}</button>`).join("");
   $("#mapfilter").querySelectorAll("button").forEach(b=>b.onclick=()=>{mapFilter=b.dataset.k;renderMapFilter();drawMarkers(true)});
 }
