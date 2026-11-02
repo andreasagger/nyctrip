@@ -400,9 +400,12 @@ const DAYS = [
     {t:"Skøjter i Bryant Park",x:"Winter Village med skøjtebane og små julebutikker. Fødselsdagsbørnene løber, resten hepper fra siden med en varm kakao.",p:"Gratis entré, leje ca. $20 til 30",a:"Bryant Park, New York, NY 10018"}
    ]},
    {w:"Frokost",items:[
-    {t:"Los Tacos No. 1",x:"Byens måske bedste tacos. Adobada på majstortilla. Man står op og spiser.",p:"ca. $5 pr. taco",a:"229 W 43rd St, New York, NY 10036"}
+    {t:"Los Tacos No. 1",x:"Tidlig frokost ca. kl. 12. Byens måske bedste tacos. Adobada på majstortilla. Man står op og spiser.",p:"ca. $5 pr. taco",a:"229 W 43rd St, New York, NY 10036"}
    ]},
    {w:"Eftermiddag",items:[
+    {t:"Summit One Vanderbilt",x:"Book indgang kl. 13.00. Spejlrum, glasbokse ud over kanten og hele byen i dagslys. Regn med 1,5 til 2 timer. Ligger lige ved Grand Central, 10 minutters gang fra Los Tacos.",p:"ca. $45 til 50",book:true,tm:"13:00",a:"45 E 42nd St, New York, NY 10017"},
+    {t:"Alternativ: Top of the Rock",x:"Udsigt fra toppen af Rockefeller Center med Empire State midt i billedet. Kun hvis I hellere vil det end Summit.",p:"ca. $40 til 50",book:true,alt:true,a:"30 Rockefeller Plaza, New York, NY 10112"},
+    {t:"Alternativ: Empire State Building",x:"Den klassiske. Udsigten fra 86. etage er udendørs.",p:"ca. $45 og op",book:true,alt:true,a:"20 W 34th St, New York, NY 10001"},
     {t:"Rockefeller Center og St. Patrick's",x:"Guldstatuen og skøjtebanen ved Rockefeller, katedralen lige overfor og butiksvinduerne på Fifth Avenue.",p:"Gratis",a:"St. Patrick's Cathedral, 5th Ave, New York, NY 10022"},
     {t:"Eftermiddag i West Village",x:"Tag 1 toget fra Times Sq 42 St til Christopher St og gå rundt i de små gader inden middagen. Bleecker Street har butikker og caféer, og Washington Square Park ligger 5 minutter væk. Eller tag en pause på hotellet først.",p:"Gratis",a:"Bleecker St & Christopher St, New York, NY 10014"}
    ]},
@@ -411,8 +414,8 @@ const DAYS = [
     {t:"Efter middagen: jazz på Village Vanguard",x:"Legendarisk jazzklub i en kælder, 3 minutter fra Little Ruby's. Køb billetter på forhånd.",p:"$$",book:true,alt:true,a:"178 7th Ave S, New York, NY 10014"}
    ]}
   ]},
- {d:"2026-11-14",n:14,wd:"Lør",c:"#00933C",ci:"#fff",title:"Brooklyn og Summit",
-  intro:"Gå over Brooklyn Bridge om morgenen før folkemængden og brug formiddagen i DUMBO. Om eftermiddagen tager I F toget til Midtown og ser solnedgangen fra Summit. Aftenen er åben til Times Square og Broadway.",
+ {d:"2026-11-14",n:14,wd:"Lør",c:"#00933C",ci:"#fff",title:"Brooklyn",
+  intro:"Gå over Brooklyn Bridge om morgenen før folkemængden, og brug dagen i DUMBO og langs vandet i roligt tempo. Om aftenen Times Square og Broadway, hvis I har fået billetter.",
   blocks:[
    {w:"Formiddag",items:[
     {t:"Valgfrit: solopgang på broen",x:"Solen står op ca. 6.45. Gå fra hotellet ca. 6.15, så har I broen næsten for jer selv. Dem der hellere vil sove, mødes med jer i DUMBO bagefter.",p:"Gratis",alt:true,a:"Brooklyn Bridge Pedestrian Walkway, New York, NY 10038"},
@@ -425,14 +428,11 @@ const DAYS = [
     {t:"Eller Juliana's",x:"Klassisk kulovnspizza lige under broen. En hel pizza deles fint af to.",p:"ca. $15 til 20",a:"19 Old Fulton St, Brooklyn, NY 11201",alt:true}
    ]},
    {w:"Eftermiddag",items:[
-    {t:"Brooklyn Bridge Park og Brooklyn Heights Promenade",x:"Gå langs vandet efter frokost og op på promenaden. Den bedste udsigt til Lower Manhattan fra jorden.",p:"Gratis",a:"Brooklyn Heights Promenade, Brooklyn, NY 11201"},
-    {t:"F toget til Midtown ca. kl. 14.30",x:"Fra York St til 42 St Bryant Park tager ca. 15 minutter. Summit ligger 5 minutters gang derfra.",a:"York St Station, Brooklyn, NY 11201"},
-    {t:"Summit One Vanderbilt ved solnedgang",x:"Book indgang kl. 15.00. Solen går ned ca. 16.40, så I har god tid til spejlrummene og glasboksene i dagslys, ser selve solnedgangen og bliver til lysene tænder. Der er ingen tidsgrænse, når I først er inde.",p:"ca. $45 til 50",book:true,tm:"15:00",a:"45 E 42nd St, New York, NY 10017"},
-    {t:"Alternativ: Top of the Rock",x:"Udsigt fra toppen af Rockefeller Center med Empire State midt i billedet. Kun hvis I hellere vil det end Summit.",p:"ca. $40 til 50",book:true,alt:true,a:"30 Rockefeller Plaza, New York, NY 10112"},
-    {t:"Alternativ: Empire State Building",x:"Den klassiske. Udsigten fra 86. etage er udendørs.",p:"ca. $45 og op",book:true,alt:true,a:"20 W 34th St, New York, NY 10001"}
+    {t:"Brooklyn Bridge Park og Brooklyn Heights Promenade",x:"Gå langs vandet og op på promenaden. Den bedste udsigt til Lower Manhattan fra jorden.",p:"Gratis",a:"Brooklyn Heights Promenade, Brooklyn, NY 11201"},
+    {t:"Tilbage og pause",x:"F toget fra York St til East Broadway er bare ét stop. Hvil benene inden aftenen.",a:"York St Station, Brooklyn, NY 11201"}
    ]},
    {w:"Aften",items:[
-    {t:"Times Square efter Summit",x:"Nu er det mørkt, og skærmene er på fuld styrke. 10 minutters gang fra Summit.",p:"Gratis",a:"Times Square, New York, NY 10036"},
+    {t:"Times Square om aftenen",x:"Når det er mørkt, er skærmene på fuld styrke. F toget fra East Broadway til 42 St Bryant Park og 5 minutters gang.",p:"Gratis",a:"Times Square, New York, NY 10036"},
     {t:"Broadway, hvis billetterne er i hus",x:"Se Broadway tips i punktet nedenfor. Mange forestillinger starter 20.00, vær der 30 minutter før.",p:"ca. $50 til 90 med rabat"},
     {t:"Sådan får I billige billetter",x:"1) Meld jer til lotterier i TodayTix appen og på Broadway Direct et par dage før. 2) TKTS boden på Times Square sælger dagens restbilletter med op til 50 % rabat. 3) Rush billetter i TodayTix kl. 10 samme dag. Chicago, Aladdin og Six er ofte gode bud.",p:"Rabat",a:"TKTS, Father Duffy Square, Broadway & W 47th St, New York, NY 10036"},
     {t:"Hurtig mad før showet",x:"Joe's Pizza på Broadway. Én slice og en cola, så er I klar.",p:"ca. $5",a:"1435 Broadway, New York, NY 10018"},
