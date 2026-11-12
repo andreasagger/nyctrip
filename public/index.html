@@ -391,24 +391,23 @@ const DAYS = [
     {t:"Hjem og slap af",x:"Katz's ligger 15 minutter til fods fra hotellet."}
    ]}
   ]},
-  {d:"2026-11-13",n:13,wd:"Fre",c:"#EE352E",ci:"#fff",title:"Fødselsdag",secret:true,
-  intro:"Tillykke til jer begge. Formiddagen er mest indenfor, mens regnen går over. Om eftermiddagen shopper I fra Little Italy gennem SoHo og går videre til West Village, hvor I spiser.",
+ {d:"2026-11-13",n:13,wd:"Fre",c:"#EE352E",ci:"#fff",title:"Fødselsdag",secret:true,
+  intro:"Tillykke til jer begge. Dagen er planlagt som en overraskelse.",
   blocks:[
    {w:"Formiddag",items:[
     {t:"Grand Central Terminal",x:"Den store hal med stjernehimlen i loftet. Find Whispering Gallery ved Oyster Bar: stil jer i hvert sit hjørne og hvisk ind i væggen. F toget til 42 St Bryant Park.",p:"Gratis",a:"89 E 42nd St, New York, NY 10017"},
     {t:"New York Public Library",x:"Løverne på trappen og den store læsesal Rose Main Reading Room.",p:"Gratis",a:"476 5th Ave, New York, NY 10018"},
-    {t:"Skøjter i Bryant Park",x:"Spring over hvis det regner. Winter Village med skøjtebane og små julebutikker. Fødselsdagsbørnene løber, resten hepper fra siden med en varm kakao.",p:"Gratis entré, leje ca. $20 til 30",a:"Bryant Park, New York, NY 10018"}
+    {t:"Skøjter i Bryant Park",x:"Winter Village med skøjtebane og små julebutikker. Fødselsdagsbørnene løber, resten hepper fra siden med en varm kakao.",p:"Gratis entré, leje ca. $20 til 30",a:"Bryant Park, New York, NY 10018"}
    ]},
    {w:"Frokost",items:[
-    {t:"Los Tacos No. 1",x:"Byens måske bedste tacos. Adobada på majstortilla. Man står op og spiser.",p:"ca. $5 pr. taco",a:"229 W 43rd St, New York, NY 10036"}
+    {t:"Los Tacos No. 1",x:"Tidlig frokost ca. kl. 12. Byens måske bedste tacos. Adobada på majstortilla. Man står op og spiser.",p:"ca. $5 pr. taco",a:"229 W 43rd St, New York, NY 10036"}
    ]},
    {w:"Eftermiddag",items:[
-    {t:"Rockefeller Center og St. Patrick's",x:"Set fra gaden. I kommer op på toppen mandag. Guldstatuen og skøjtebanen ved Rockefeller, katedralen lige overfor og butiksvinduerne på Fifth Avenue.",p:"Gratis",a:"St. Patrick's Cathedral, 5th Ave, New York, NY 10022"},
-    {t:"Videre til Little Italy",x:"Tag B eller D toget fra 47 50 Sts Rockefeller Ctr til Grand St. Så ligger Little Italy og Elizabeth Street lige om hjørnet.",a:"Mulberry St & Grand St, New York, NY 10013"},
-    {t:"Little Italy",x:"Mulberry Street med røde duge, italienske flag og cannoli. Gå fra Canal St op mod Prince St. Ca. 15 minutter fra hotellet.",p:"Gratis",a:"Mulberry St & Grand St, New York, NY 10013"},
-    {t:"Elizabeth Street i Nolita",x:"Små butikker og caféer en gade øst for Mulberry. Alohas har butik her. Se hele listen under Mad og shop.",a:"260 Elizabeth St, New York, NY 10012"},
-    {t:"Shopping i SoHo",x:"Broadway mellem Canal St og Houston St har de store kæder. Sidegaderne Prince St, Spring St og Mercer St har de mindre butikker. Rebelonging og New York or Nowhere ligger her også.",a:"Broadway & Prince St, New York, NY 10012"},
-    {t:"Gå videre til West Village",x:"Fra SoHo er der ca. 15 minutters gang via Bleecker Street til Little Ruby's. Butikker og caféer hele vejen.",a:"Bleecker St & Christopher St, New York, NY 10014"}
+    {t:"Summit One Vanderbilt kl. 13.00",x:"Book indgang kl. 13.00. Spejlrum, glasbokse ud over kanten og hele byen i dagslys. Regn med 1,5 til 2 timer. Ligger lige ved Grand Central, 10 minutters gang fra Los Tacos.",p:"ca. $45 til 50",book:true,tm:"13:00",a:"45 E 42nd St, New York, NY 10017"},
+    {t:"Alternativ: Top of the Rock",x:"Udsigt fra toppen af Rockefeller Center med Empire State midt i billedet. Kun hvis I hellere vil det end Summit.",p:"ca. $40 til 50",book:true,alt:true,a:"30 Rockefeller Plaza, New York, NY 10112"},
+    {t:"Alternativ: Empire State Building",x:"Den klassiske. Udsigten fra 86. etage er udendørs.",p:"ca. $45 og op",book:true,alt:true,a:"20 W 34th St, New York, NY 10001"},
+    {t:"Rockefeller Center og St. Patrick's",x:"Guldstatuen og skøjtebanen ved Rockefeller, katedralen lige overfor og butiksvinduerne på Fifth Avenue.",p:"Gratis",a:"St. Patrick's Cathedral, 5th Ave, New York, NY 10022"},
+    {t:"Eftermiddag i West Village",x:"Tag 1 toget fra Times Sq 42 St til Christopher St og gå rundt i de små gader inden middagen. Bleecker Street har butikker og caféer, og Washington Square Park ligger 5 minutter væk. Eller tag en pause på hotellet først.",p:"Gratis",a:"Bleecker St & Christopher St, New York, NY 10014"}
    ]},
    {w:"Aften",items:[
     {t:"Fødselsdagsmiddag på Little Ruby's",x:"Bord kl. 19.30. Australsk café i West Village, kendt for spicy vodka pasta, creamy chicken og burgere. Den ligger lige ved Christopher St stationen. Nævn ved bordet at der er to med fødselsdag.",p:"ca. $30 til 40",tm:"19:30",a:"225 W 4th St, New York, NY 10014"},
@@ -465,28 +464,31 @@ const DAYS = [
     {t:"Eller Vanessa's Dumpling House",x:"Stegte dumplings og sesam pancake sandwich.",p:"ca. $10",alt:true,a:"118 Eldridge St, New York, NY 10002"}
    ]}
   ]},
-   {d:"2026-11-16",n:16,wd:"Man",c:"#B933AD",ci:"#fff",title:"West Village og Top of the Rock",
-  intro:"Ugens bedste vejr. Formiddagen i West Village, eftermiddagen på High Line til Hudson Yards og så op på Top of the Rock til solnedgang. Aftenen slutter i Koreatown.",
+  {d:"2026-11-16",n:16,wd:"Man",c:"#B933AD",ci:"#fff",title:"Shopping og West Side",
+  intro:"Formiddagen går gennem Little Italy, Elizabeth Street og SoHo, som alle ligger tæt på hotellet. Om eftermiddagen West Village og High Line, og aftenen slutter i Koreatown. Tag det, I orker.",
   blocks:[
    {w:"Formiddag",items:[
-    {t:"Washington Square Park og Greenwich Village",x:"Buen, gademusikanter og smukke gader i Greenwich Village.",p:"Gratis",a:"Washington Square Park, New York, NY 10012"},
-    {t:"Friends hjørnet",x:"Hjørnet af Grove St og Bedford St, hvor bygningen fra Friends står. Stil jer på det modsatte hjørne for at få samme vinkel som i serien. 10 minutters gang fra Washington Square Park.",p:"Gratis",a:"90 Bedford St, New York, NY 10014"},
-    {t:"Magnolia Bakery og Bleecker Street",x:"Banana pudding på Magnolia. Lige overfor ligger Alohas' anden butik, og gaden er fuld af små butikker og caféer.",p:"ca. $6",a:"401 Bleecker St, New York, NY 10014"},
+    {t:"Little Italy",x:"Mulberry Street med røde duge, italienske flag og cannoli. Gå fra Canal St op mod Prince St. Ca. 15 minutter fra hotellet.",p:"Gratis",a:"Mulberry St & Grand St, New York, NY 10013"},
+    {t:"Elizabeth Street i Nolita",x:"Små butikker og caféer en gade øst for Mulberry. Alohas har butik her. Se hele listen under Mad og shop.",a:"260 Elizabeth St, New York, NY 10012"},
+    {t:"Shopping i SoHo",x:"Broadway mellem Canal St og Houston St har de store kæder. Sidegaderne Prince St, Spring St og Mercer St har de mindre butikker. Rebelonging og New York or Nowhere ligger her også.",a:"Broadway & Prince St, New York, NY 10012"},
     {t:"Evt. Macy's Herald Square",x:"Kæmpe stormagasin. Spørg ved Visitor Center om turistrabat, tag pas med.",alt:true,a:"151 W 34th St, New York, NY 10001"}
    ]},
    {w:"Frokost",items:[
-    {t:"Slice på L'industrie",x:"En af byens mest roste pizzaslices, fx med burrata. 5 minutter fra Friends hjørnet.",p:"ca. $6 til 9",a:"104 Christopher St, New York, NY 10014"},
-    {t:"Chelsea Market",x:"Food hall i en gammel kiksfabrik. Godt til en snack eller tidlig aftensmad.",p:"$ til $$",a:"75 9th Ave, New York, NY 10011"}
+    {t:"Prince Street Pizza",x:"Firkantet slice med pepperoni, der krøller sig til små skåle. Der er kø, men den går hurtigt.",p:"ca. $6 til 8",a:"27 Prince St, New York, NY 10012"},
+    {t:"Eller Sadelle's",x:"Bagels, røget laks og French toast i pæne omgivelser. Dyrere og ofte kø, så book bord.",p:"$$$",book:true,alt:true,a:"463 West Broadway, New York, NY 10012"}
    ]},
    {w:"Eftermiddag",items:[
+    {t:"Washington Square Park og Greenwich Village",x:"Buen, gademusikanter og smukke gader i Greenwich Village.",p:"Gratis",a:"Washington Square Park, New York, NY 10012"},
+    {t:"Friends hjørnet",x:"Hjørnet af Grove St og Bedford St, hvor bygningen fra Friends står. Stil jer på det modsatte hjørne for at få samme vinkel som i serien. 10 minutters gang fra Washington Square Park.",p:"Gratis",a:"90 Bedford St, New York, NY 10014"},
+    {t:"Magnolia Bakery og Bleecker Street",x:"Banana pudding på Magnolia. Lige overfor ligger Alohas' anden butik, og gaden er fuld af små butikker og caféer.",p:"ca. $6",a:"401 Bleecker St, New York, NY 10014"},
+    {t:"Slice på L'industrie",x:"En af byens mest roste pizzaslices, fx med burrata. 5 minutter fra Friends hjørnet.",p:"ca. $6 til 9",alt:true,a:"104 Christopher St, New York, NY 10014"},
     {t:"Little Island",x:"Park på pæle ude i Hudson floden. Gratis og sjovt at gå rundt på.",p:"Gratis",a:"Little Island, Pier 55, New York, NY 10014"},
     {t:"High Line til Hudson Yards",x:"Gammel togbane lavet om til park. Gå op ved Gansevoort St og nordpå. Gør et stop i Chelsea Market undervejs. Ender ved Vessel i Hudson Yards.",p:"Gratis",a:"High Line, Gansevoort St, New York, NY 10014"},
-    {t:"Vessel og Hudson Yards",x:"Den kobberfarvede trappeskulptur for enden af High Line. Gratis at se nedefra.",p:"Gratis",a:"20 Hudson Yards, New York, NY 10001"},
-    {t:"Top of the Rock kl. 15.30",x:"Book indgang kl. 15.30. Solen går ned ca. 16.35. Empire State midt i udsigten mod syd og hele Central Park mod nord. Det øverste dæk er udendørs, så tag en varm jakke med. Fra Hudson Yards tager I 7 toget til 5 Av og går 5 minutter.",p:"ca. $40 til 50",book:true,tm:"15:30",a:"30 Rockefeller Plaza, New York, NY 10112"},
-    {t:"Alternativ: Empire State Building",x:"Den klassiske. Udsigten fra 86. etage er udendørs.",p:"ca. $45 og op",book:true,alt:true,a:"20 W 34th St, New York, NY 10001"}
+    {t:"Chelsea Market",x:"Food hall i en gammel kiksfabrik. Godt til en snack eller tidlig aftensmad.",p:"$ til $$",a:"75 9th Ave, New York, NY 10011"},
+    {t:"Vessel og Hudson Yards",x:"Den kobberfarvede trappeskulptur for enden af High Line. Gratis at se nedefra.",p:"Gratis",a:"20 Hudson Yards, New York, NY 10001"}
    ]},
    {w:"Aften",items:[
-    {t:"Videre til Koreatown",x:"Fra Rockefeller Center er der ca. 20 minutters gang ned ad 6th Ave, eller B, D, F eller M toget til 34 St Herald Sq.",a:"W 32nd St & Broadway, New York, NY 10001"},
+    {t:"Forbi Madison Square Garden",x:"Gå ad 33rd St mod øst. Arenaen ligger oven på Penn Station, lige på vejen til Koreatown.",p:"Gratis",a:"4 Pennsylvania Plaza, New York, NY 10001"},
     {t:"Sidste aften i Koreatown",x:"W 32nd St er fuld af koreansk BBQ, hvor I griller selv ved bordet. Hyggeligt til en afslutning.",p:"ca. $35 til 50",a:"W 32nd St & Broadway, New York, NY 10001"},
     {t:"Eller billigt i Chinatown",x:"Wah Fung eller Xi'an, hvis pengene skal holdes til shopping.",p:"ca. $7 til 15",alt:true}
    ]}
